@@ -32,6 +32,9 @@ class Allocation
     #[ORM\ManyToOne]
     private ?categoryA $category = null;
 
+    #[ORM\ManyToOne(inversedBy: 'allocation')]
+    private ?Event $event = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Allocation
     public function setCategory(?categoryA $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): static
+    {
+        $this->event = $event;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,20 @@ class Event
 
     #[ORM\ManyToOne]
     private ?CategoryE $categoryid = null;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Allocation::class)]
+    private Collection $allocation;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Lieu $lieu = null;
+
+    #[ORM\ManyToOne]
+    private ?User $userid = null;
+
+    public function __construct()
+    {
+        $this->allocation = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +106,60 @@ class Event
     public function setCategoryid(?CategoryE $categoryid): static
     {
         $this->categoryid = $categoryid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allocation>
+     */
+    public function getAllocation(): Collection
+    {
+        return $this->allocation;
+    }
+
+    public function addAllocation(Allocation $allocation): static
+    {
+        if (!$this->allocation->contains($allocation)) {
+            $this->allocation->add($allocation);
+            $allocation->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllocation(Allocation $allocation): static
+    {
+        if ($this->allocation->removeElement($allocation)) {
+            // set the owning side to null (unless already changed)
+            if ($allocation->getEvent() === $this) {
+                $allocation->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): static
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getUserid(): ?User
+    {
+        return $this->userid;
+    }
+
+    public function setUserid(?User $userid): static
+    {
+        $this->userid = $userid;
 
         return $this;
     }
