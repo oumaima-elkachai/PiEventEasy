@@ -2,7 +2,18 @@
 {% block body %}
 
 <main id="main" class="main">
+               <style>
+                    .text-danger {
+                        color: #dc3545 !important;
+                    }
 
+                    .text-danger li {
+                        margin-top: 5px;
+                        color: #dc3545 !important;
+                        list-style-type: "❗" !important;
+                    }
+
+                </style>
     <div class="pagetitle">
       <h1>FORM ALLOCATION</h1>
       <nav>
@@ -27,17 +38,24 @@
              
                 
                 <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">nom</label>
-                  <div class="col-sm-10">
+                  <label for="inputNom" class="col-sm-2 col-form-label">nom</label>
+                  <div class="col-sm-10" id="inputNom">
                     {{ form_widget(form.nom,{'attr':{'class':'form-control'}}) }}
+                    <div class="mb-3">
+                        {{ form_errors(form.nom, {'attr': {'style':'color:red;'}}) }}
+                    </div>
                   </div>
+                     
                 </div>
                
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">prix</label>
-                  <div class="col-sm-10">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">prix</label>
+                  <div class="col-sm-10" id="inputNumber">
                     {{ form_widget(form.prix,{'attr':{'class':'form-control'}}) }}
                   </div>
+                   <div class="mb-3">
+                        {{ form_errors(form.prix, {'attr': {'style':'color:red;'}}) }}
+                    </div>
                 </div>
 
                 <div class="row mb-3">
@@ -45,6 +63,9 @@
                   <div class="col-sm-10">
                     {{ form_widget(form.date,{'attr':{'class':'form-control'}}) }}
                   </div>
+                    <div class="mb-3 text-danger">
+                        {{ form_errors(form.date, {'attr': {'class':'text-danger'}}) }}
+                    </div>
 
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">quantity</label>

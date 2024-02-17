@@ -251,7 +251,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
+          <li class="breadcrumb-item active">RENT</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -262,9 +262,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Datatables</h5>
-              <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
-
+              <h5 class="card-title">Rentals</h5>
+              
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
@@ -275,6 +274,8 @@
                     <th scope="col">date</th>
                       <th scope="col">quantity</th>
                       <th scope="col">Category</th>
+                      <th scope="col">Event ID</th>
+                      
                       <th scope="col">image</th>
                     <th scope="col">edit</th>
                       <th scope="col">delete</th>
@@ -289,7 +290,9 @@
                     <td>{{a.date|date('Y-m-d')}}</td>
                       <td>{{a.quantity}}</td>
                   <td>{{ a.category is not null ? a.category.nom : 'N/A' }}</td>
-                      <td>
+                  <td>{{ a.event is not null ? a.event.id : 'N/A' }}</td>
+                  
+                  <td> 
                         {% if a.image %}
                             <img src="{{ asset('uploads/images/' ~ a.image) }}" alt="Image" style="height: 50px;">
                         {% else %}

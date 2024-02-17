@@ -17,7 +17,7 @@
 		<!-- breadcrumb-section - start
 		================================================== -->
 		<section id="breadcrumb-section" class="breadcrumb-section clearfix">
-			<div class="jarallax" style="background-image: url();">
+			<div class="jarallax" style="background-image: url({{ asset('Client/assets/images/special-offer-bg.png') }});">
 				<div class="overlay-black">
 					<div class="container">
 						<div class="row justify-content-center">
@@ -50,7 +50,7 @@
 		
 		<!-- event-search-section - start
 		================================================== -->
-		<section id="event-search-section" class="event-search-section clearfix" style="background-image: url(/images/special-offer-bg.png);">
+		<section id="event-search-section" class="event-search-section clearfix" style="background-image: url({{ asset('Client/assets/images/special-offer-bg.png') }});">
 			<div class="container">
 				<div class="row">
 
@@ -111,7 +111,7 @@
 				<div class="row justify-content-center">
 
 					<!-- - start -->
-					<div class="col-lg-9 col-md-12 col-sm-12">
+					<div class="col-lg-9 col-md-12 col-sm-12" >
 
 						<div class="search-result-form">
 							<form action="#!">
@@ -150,62 +150,6 @@
 						<div class="tab-content">
 							<div id="list-style" class="tab-pane fade">
 
-								<!-- event-item - start -->
-								<div class="event-list-item clearfix">
-
-									<!-- event-image - start -->
-									<div class="event-image">
-										<div class="post-date">
-											<span class="date">26</span>
-											<small class="month">june</small>
-										</div>
-										<img src="assets/images/event/event-1.png" alt="Image_not_found">
-									</div>
-									<!-- event-image - end -->
-
-									<!-- event-content - start -->
-									<div class="event-content">
-										<div class="event-title mb-15">
-											<h3 class="title">
-												Barcelona <strong>Food truck Festival 2018</strong>
-											</h3>
-											<span class="ticket-price yellow-color">Tickets from $52</span>
-										</div>
-										<p class="discription-text mb-30">
-											Lorem ipsum dollor site amet the best  consectuer diam nerdistin adipiscing elites sed diam nonummy nibh the ebest uismod delgas tincidunt ut laoreet dolore magna...
-										</p>
-										<div class="event-info-list ul-li clearfix">
-											<ul>
-												<li>
-													<span class="icon">
-														<i class="fas fa-microphone"></i>
-													</span>
-													<div class="info-content">
-														<small>Speaker</small>
-														<h3>jenny juis</h3>
-													</div>
-												</li>
-												<li>
-													<span class="icon">
-														<i class="fas fa-ticket-alt"></i>
-													</span>
-													<div class="info-content">
-														<small>Max Seats</small>
-														<h3>2,250 seats</h3>
-													</div>
-												</li>
-												<li>
-													<a href="#!" class="tickets-details-btn">
-														tickets & details
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<!-- event-content - end -->
-
-								</div>
-								<!-- event-item - end -->
 
 								<!-- event-item - start -->
 	
@@ -222,90 +166,64 @@
 								
 								<!-- event-item - end -->
 
-								<div class="pagination ul-li clearfix">
-									<ul>
-										<li class="page-item prev-item">
-											<a class="page-link" href="#!">Prev</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#!">01</a></li>
-										<li class="page-item active"><a class="page-link" href="#!">02</a></li>
-										<li class="page-item"><a class="page-link" href="#!">03</a></li>
-										<li class="page-item"><a class="page-link" href="#!">04</a></li>
-										<li class="page-item"><a class="page-link" href="#!">05</a></li>
-										<li class="page-item next-item">
-											<a class="page-link" href="#!">Next</a>
-										</li>
-									</ul>
-								</div>
 
 							</div>
 
-							<div id="grid-style" class="tab-pane fade in active show">
+							<div id="grid-style" class="tab-pane fade in active show" >
 								<div class="row justify-content-center">
 
 									<!-- event-grid-item - start -->
-									<div class="col-lg-6 col-md-6 col-sm-12">
-										<div class="event-grid-item">
-											<!-- event-image - start -->
-											<div class="event-image">
-												<div class="post-date">
-													<span class="date">26</span>
-													<small class="month">june</small>
+									<!-- aLLOCATION FOR loop-->
+									{% for a in allocations %}
+										<div class="col-lg-6 col-md-6 col-sm-12" >
+											<div class="event-grid-item">
+												<!-- event-image - start -->
+												<div class="event-image">
+													<div class="post-date">
+														<span class="date">{{a.date|date('d')}}</span>
+														<small class="month">{{a.date|date('M')}}</small>
+													</div>
+													<img src="{{ asset('uploads/images/' ~ a.image) }}" alt="Image_not_found">
 												</div>
-												<img src="assets/images/event/1.event-grid.jpg" alt="Image_not_found">
-											</div>
-											<!-- event-image - end -->
+												<!-- event-image - end -->
 
-											<!-- event-content - start -->
-											<div class="event-content">
-												<div class="event-title mb-30">
-													<h3 class="title">
-														Barcelona Food Truck Festival 2018-2019
-													</h3>
-													<span class="ticket-price yellow-color">Tickets from $52</span>
+												<!-- event-content - start -->
+												<div class="event-content">
+													<div class="event-title mb-30">
+														<h3 class="title">
+															{{a.nom}}
+														</h3>
+														<span class="ticket-price yellow-color">{{a.prix}} TND</span>
+													</div>
+													<div class="event-post-meta ul-li-block mb-30">
+														<ul>
+															<li>
+																<span class="icon">
+																	<i class="far fa-clock"></i>
+																</span>
+																{{a.date|date('Y-m-d')}}
+															</li>
+															<li>
+																<span class="icon">
+																	<i class="fas fa-boxes"></i>
+																</span>
+															{{ a.category is not null ? a.category.nom : 'N/A' }}
+															</li>
+														</ul>
+													</div>
+													<!-- 
+													<a href="#!" class="tickets-details-btn">
+														RENT
+													</a>
+													-->
 												</div>
-												<div class="event-post-meta ul-li-block mb-30">
-													<ul>
-														<li>
-															<span class="icon">
-																<i class="far fa-clock"></i>
-															</span>
-															Start 20:00pm - 22:00pm
-														</li>
-														<li>
-															<span class="icon">
-																<i class="fas fa-map-marker-alt"></i>
-															</span>
-															Manhattan, New York
-														</li>
-													</ul>
-												</div>
-												<a href="#!" class="tickets-details-btn">
-													tickets & details
-												</a>
+												<!-- event-content - end -->
 											</div>
-											<!-- event-content - end -->
 										</div>
-									</div>
+									{% endfor %}
 									<!-- event-grid-item - end -->
 
-									<!-- pagination - start -->
-									<div class="pagination ul-li clearfix">
-										<ul>
-											<li class="page-item prev-item">
-												<a class="page-link" href="#!">Prev</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#!">01</a></li>
-											<li class="page-item active"><a class="page-link" href="#!">02</a></li>
-											<li class="page-item"><a class="page-link" href="#!">03</a></li>
-											<li class="page-item"><a class="page-link" href="#!">04</a></li>
-											<li class="page-item"><a class="page-link" href="#!">05</a></li>
-											<li class="page-item next-item">
-												<a class="page-link" href="#!">Next</a>
-											</li>
-										</ul>
-									</div>
-									<!-- pagination - end -->
+
 
 								</div>
 							</div>
@@ -325,9 +243,8 @@
 
 
 		<!-- default-footer-section - start
-		
-		<!-- default-footer-section - end
-		================================================== -->
+
+
 
 
 

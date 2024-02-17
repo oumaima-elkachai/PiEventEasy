@@ -92,11 +92,14 @@ public function deleteallocation($id,AllocationRepository $AllocationRepository,
 
 return $this->redirectToRoute('adminallocation');  
 }
+
 #[Route('/userallocation', name: 'userallocation')]
-public function showuserallocation(): Response
-{
+public function showuserallocation(AllocationRepository $repo): Response
+{   
+    $allocations=$repo->findAll();
     return $this->render('userallocation/index.html.twig', [
         'controller_name' => 'AllocationController',
+        'allocations' => $allocations
     ]);
 }
 }

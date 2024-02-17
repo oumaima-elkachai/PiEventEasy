@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Allocation;
 use App\Entity\CategoryA;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -38,7 +39,7 @@ class AllocationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Allocation::class,
         ]);
     }
 }
