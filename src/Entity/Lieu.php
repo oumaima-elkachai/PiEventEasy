@@ -27,7 +27,7 @@ class Lieu
     private ?string $image = null;
 
     #[ORM\ManyToOne]
-    private ?categoryL $category = null;
+    private ?CategoryL $category = null;
 
     public function getId(): ?int
     {
@@ -82,12 +82,12 @@ class Lieu
         return $this;
     }
 
-    public function getCategory(): ?categoryL
+    public function getCategory(): ?CategoryL
     {
         return $this->category;
     }
 
-    public function setCategory(?categoryL $category): static
+    public function setCategory(?CategoryL $category): static
     {
         $this->category = $category;
 

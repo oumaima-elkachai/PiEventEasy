@@ -30,7 +30,7 @@ class Allocation
     private ?string $image = null;
 
     #[ORM\ManyToOne]
-    private ?categoryA $category = null;
+    private ?CategoryA $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'allocation')]
     private ?Event $event = null;
@@ -100,12 +100,12 @@ class Allocation
         return $this;
     }
 
-    public function getCategory(): ?categoryA
+    public function getCategory(): ?CategoryA
     {
         return $this->category;
     }
 
-    public function setCategory(?categoryA $category): static
+    public function setCategory(?CategoryA $category): static
     {
         $this->category = $category;
 
