@@ -43,6 +43,29 @@ class CategoryAController extends AbstractController
         ]);
 
 }
+#[Route('/editcategory/{id}', name: 'editcategory')] 
+public function editcategory($id, CategoryARepository $CategoryARepository, ManagerRegistry $managerRegistry, Request $req): Response  
+{ 
+    $x = $managerRegistry->getManager();  
+    $categorya = $CategoryARepository->find($id);
+    
+    $form = $this->createForm(CategoryAType::class, $categorya);
+    $form->handleRequest($req);
+    
+    if ($form->isSubmitted() && $form->isValid()) { 
+        
+
+        $x->persist($categorya);
+        $x->flush();
+    
+        return $this->redirectToRoute('category_a');
+    }
+     
+    return $this->renderForm('category_a/editcategory.html.twig', [
+        'form' => $form
+    ]);
+}
+   
 #[Route('/deletecategory/{id}', name: 'deletecategory')]
 public function deletecategory($id,CategoryARepository $CategoryARepository,ManagerRegistry $managerRegistry): Response
 {

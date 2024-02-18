@@ -17,10 +17,11 @@ class Allocation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5, max: 255, minMessage: 'Le nom doit faire au moins 5 caractères', maxMessage: 'Le titre ne peut pas faire plus de 255 caractères')]
+    #[Assert\NotBlank(message: "Ce champ ne doit pas être vide.")]
     private ?string $nom = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Ce champ ne doit pas être vide.")]
     #[Assert\Regex(
         pattern: "/^\d+$/",
         message: "The value {{ value }} is not a valid number."
@@ -32,6 +33,10 @@ class Allocation
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: "/^\d+$/",
+        message: "La quantité ne peut contenir que des chiffres"
+    )]
     private ?int $quantity = null;
 
     #[ORM\Column(length: 255)]

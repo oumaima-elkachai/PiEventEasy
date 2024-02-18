@@ -37,24 +37,19 @@ class AllocationController extends AbstractController
          if($form->isSubmitted()and $form->isValid()){
             $imageFile = $form['image']->getData();
             
-            // Check if a file was uploaded
             if ($imageFile) {
-                // Generate a unique name for the file
                 $newFilename = uniqid().'.'.$imageFile->guessExtension();
 
-                // Move the file to the directory where images are stored
+               
                 try {
                     $imageFile->move(
                         $this->getParameter('images_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // Handle file upload error
-                    // You can log the error or display a message to the user
-                    // Remember to handle exceptions appropriately in a real-world application
+                    
                 }
 
-                // Update the 'image' property of the entity with the file name
                 $allocation->setImage($newFilename);
             }
 
@@ -67,21 +62,52 @@ class AllocationController extends AbstractController
         ]);
 }
 #[Route('/editallocation/{id}', name: 'editallocation')] 
-public function editallocation($id,AllocationRepository $allocationRepository,managerRegistry $managerRegistry,Request $req): Response  
-{ //var_dump(($id)).die();
-    $x=$managerRegistry->getManager();  
-     $dataid=$allocationRepository->find($id);
-    $form=$this->createForm(AllocationType::class,$dataid);
+public function editallocation($id, AllocationRepository $allocationRepository, ManagerRegistry $managerRegistry, Request $req): Response  
+{ 
+    $x = $managerRegistry->getManager();  
+    $allocation = $allocationRepository->find($id);
+    
+    $form = $this->createForm(AllocationType::class, $allocation);
     $form->handleRequest($req);
-    if($form->isSubmitted()and $form->isValid()){ 
-        $x->persist($dataid);
+    
+    if ($form->isSubmitted() && $form->isValid()) { 
+        $imageFile = $form['image']->getData();
+            
+        if ($imageFile) {
+          
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+
+            try {
+                $imageFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+             
+            }
+
+            $oldFilename = $allocation->getImage();
+            if ($oldFilename) {
+                $oldFilePath = $this->getParameter('images_directory') . '/' . $oldFilename;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            $allocation->setImage($newFilename);
+        }
+
+        $x->persist($allocation);
         $x->flush();
     
-        return $this->redirectToRoute('adminallocation');}
-     return $this->renderForm('adminallocation/editallocation.html.twig', [
+        return $this->redirectToRoute('adminallocation');
+    }
+    
+    return $this->renderForm('adminallocation/editallocation.html.twig', [
         'form' => $form
     ]);
-} 
+}
+
 #[Route('/deletallocation/{id}', name: 'deleteallocation')]
 public function deleteallocation($id,AllocationRepository $AllocationRepository,ManagerRegistry $managerRegistry): Response
 {

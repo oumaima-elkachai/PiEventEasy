@@ -270,6 +270,7 @@
                   <tr>
                     <th scope="col">id</th>
                     <th scope="col">Nom</th>
+                     <th scope="col">edit</th>
                       <th scope="col">delete</th>
                   </tr>
                 </thead>
@@ -278,7 +279,8 @@
                   <tr>
                     <td>{{a.id}}</td>
                     <td>{{a.nom}}</td>
-                    <td><a class="btn btn-danger" href="{{path('deleteallocation',{'id':a.id})}}">DELETE</a></td>
+                     <td> <a class="btn btn-success" href="{{path('editcategory',{'id':a.id})}}" >EDIT</a></td>
+                    <td><a class="btn btn-danger" href="{{path('deletecategory',{'id':a.id})}}">DELETE</a></td>
                   </tr>
                   {% endfor %}
                 </tbody>
