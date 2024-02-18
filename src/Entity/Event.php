@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -16,14 +17,25 @@ class Event
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Title = null;
+   
+#[ORM\Column(length: 255)]
+#[Assert\NotBlank(message: "Le titre est requis")]
+#[Assert\Type(type: "string", message: "Le titre doit être une chaîne de caractères.")]
+#[Assert\Regex(
+    pattern: "/^[a-zA-Z\s]+$/",
+    message: "Le titre ne doit contenir que des lettres et des espaces."
+)]
+private ?string $Title = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Email = null;
+#[ORM\Column(length: 255)]
+#[Assert\NotBlank(message: "L'email est requis")]
+#[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
+private ?string $Email = null;
 
-    #[ORM\Column]
-    private ?int $Phone = null;
+#[ORM\Column(type: "integer")]
+#[Assert\NotBlank(message: "Le numéro de téléphone est requis")]
+#[Assert\Type(type: "integer", message: "Le numéro de téléphone doit être un nombre.")]
+private ?int $Phone = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $Date = null;

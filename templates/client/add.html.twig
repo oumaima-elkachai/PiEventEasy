@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title %}EvenatEasy{% endblock %}
+
+{% block body %}
+    <section id="main-carousel2" class="main-carousel2 clearfix">
+        <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
+            <div class="overlay-black">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="reg-form">
+                                <div class="from-title">
+                                    <h2 class="title-text"><strong>CREATE</strong> <strong>YOUR</strong> <strong>EVENT</strong> </h2>
+                                </div>
+                                {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+                                <div class="form-wrapper mb-30">
+                                    <div class="form-item">
+                                        <label for="Event Title" class="form-label">Title</label>
+                                        {{ form_widget(form.Title,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Title #}
+                                        {{ form_errors(form.Title) }}
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="Email Adress" class="form-label">Email Address</label>
+                                        {{ form_widget(form.Email,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Email #}
+                                        {{ form_errors(form.Email) }}
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="Phone Number" class="form-label">Phone Number</label>
+                                        {{ form_widget(form.Phone,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Phone #}
+                                        {{ form_errors(form.Phone) }}
+                                    </div>
+                                    <div class="form-item">  
+                                        <label for="Date Event" class="form-label">Date Event</label>
+                                        {{ form_widget(form.Date,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                    <div class="form-item">  
+                                        <label for="categoryid" class="form-label">Category</label>
+                                        {{ form_widget(form.categoryid,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                    <div class="rahouma">
+                                        {{ form_widget(form.Submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                                    </div>
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+{% endblock %}

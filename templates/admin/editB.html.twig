@@ -1,0 +1,62 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Form Event</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">Forms</li>
+        <li class="breadcrumb-item active">Event</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">EVENTS</h5>
+            <!-- Horizontal Form -->
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+            <div class="mb-3">
+              {{ form_label(form.Title, 'Title', {'label_attr': {'class': 'form-label'}}) }}
+              {{ form_widget(form.Title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="mb-3">
+              {{ form_label(form.Email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+              {{ form_widget(form.Email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="mb-3">
+              {{ form_label(form.Phone, 'Phone Number', {'label_attr': {'class': 'form-label'}}) }}
+              {{ form_widget(form.Phone, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="mb-3">
+              {{ form_label(form.Date, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+              {{ form_widget(form.Date, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            
+             <div class="mb-3">
+                         {{ form_label(form.categoryid, 'Category', {'label_attr': {'class': 'form-label'}}) }}
+												{{ form_widget(form.categoryid ,{'attr':{'class':'form-control'}}) }}
+											</div>
+
+            <div class="text-center">
+              {{ form_widget(form.Submit, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+            
+
+            {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+  {% endblock %}

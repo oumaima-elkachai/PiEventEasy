@@ -1,0 +1,60 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Tables / Data {% endblock %}
+
+{% block body %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Data Tables</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">Tables</li>
+        <li class="breadcrumb-item active">Data</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Datatables</h5>
+            <p>Ajoutez des DataTables légères à votre projet en utilisant la bibliothèque <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a>. Il suffit d'ajouter la classe <code>.datatable</code> à n'importe quelle table que vous souhaitez convertir en datatable.</p>
+
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for a in evenement %}
+                <tr>
+                  <td>{{ a.id }}</td>
+                  <td>{{ a.title }}</td>
+                  <td>{{ a.email }}</td>
+                  <td>{{ a.phone }}</td>
+                  <td>{{ a.Date|date('Y-m-d') }}</td>
+                  <td><a class="btn btn-success" href="{{ path('editB', {'id': a.id}) }}">EDIT</a></td>
+                  <td><a class="btn btn-danger" href="{{ path('deleteB', {'id': a.id}) }}">DELETE</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% for a in evenement %}
+        <div class="col-md-4">
+            <div class="card mb-4" style="background-image:  url(Client/assets/images/slider/slider-bg4.jpg);">
+                <div class="card-body">
+                    <h5 class="card-title">{{ a.Title }}</h5>
+                    <p class="card-text">Email: {{ a.Email }}</p>
+                    <p class="card-text">Phone: {{ a.Phone }}</p>
+                    <p class="card-text">Date: {{ a.Date|date('Y-m-d') }}</p>
+                    {% if a.categoryid is not null %}
+                        <p class="card-text">Category: {{ a.categoryid.type }}</p>
+                    {% else %}
+                        <p class="card-text">Category: DOES NOT EXIST</p>
+                    {% endif %}
+                    <a href="{{ path('edit', {'id': a.id}) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ path('delete', {'id': a.id}) }}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

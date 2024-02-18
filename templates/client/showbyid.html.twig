@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+EvenatEasy
+{% endblock %}
+
+{% block body %}
+      
+      
+      
+      
+      <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h5 class="card-title">Evenement ID: {{ evenement.id }}</h5>
+                    </div>
+                    <div class="card-body" style="background-image: url('public/Client/assets/images/slider/R.jpg'); background-size: cover;">
+                        <table class="table">
+                            <tr>
+                                <th>Title:</th>
+                                <td>{{ evenement.Title }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>{{ evenement.Email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone:</th>
+                                <td>{{ evenement.Phone }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date:</th>
+                                <td>{{ evenement.Date|date('d/m/Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Category:</th>
+                                <td>
+                                    {% if evenement.categoryid is not null %}
+                                        {{ evenement.categoryid.Type }}
+                                    {% else %}
+                                        categoryid is null
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="text-center">
+                            <a href="{{ path('edit',{'id':evenement.id}) }}" class="btn btn-primary">EDIT</a>
+                            <a href="{{ path('delete',{'id':evenement.id}) }}" class="btn btn-danger">DELETE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
