@@ -27,7 +27,7 @@ class Lieu
     private ?string $image = null;
 
     #[ORM\ManyToOne]
-    private ?categoryL $category = null;
+    private ?CategoryL $category = null;
 
     public function getId(): ?int
     {
