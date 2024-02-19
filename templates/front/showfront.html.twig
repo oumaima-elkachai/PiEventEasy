@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partenaire{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Partenaire</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ partenaire.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom du partenaire</th>
+                                    <td>{{ partenaire.nom}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Numero du téléphone</th>
+                                    <td>{{ partenaire.tel}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Donation</th>
+                                    <td>{{ partenaire.don }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Image</th>
+                                    <td>{{ partenaire.image }}</td>
+                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_partenaire_indexfront') }}" class="btn btn-secondary">Retour à la liste</a>
+                       
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

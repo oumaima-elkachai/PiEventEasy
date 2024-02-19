@@ -1,0 +1,53 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}New Contrat{% endblock %}
+
+{% block body %}
+    <h1>Create new Contrat</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">New Contrat</h2>
+
+                        <form method="post">
+                            {{ form_start(form) }}
+
+                            <div class="form-group">
+                                {{ form_label(form.nom) }}
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.nom) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.tel) }}
+                                {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.tel) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.don) }}
+                                {{ form_widget(form.don, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.don) }}
+                            </div>
+
+                             <div class="form-group">
+                                {{ form_label(form.image) }}
+                                {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.image) }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save</button>
+
+                            {{ form_end(form) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('app_contrat_index') }}">back to list</a>
+{% endblock %}

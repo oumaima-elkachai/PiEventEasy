@@ -1,0 +1,53 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Partenaire index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Liste des partenaire</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nom</th>
+                                    <th>Numéro du téléphone</th>
+                                    <th>Donation</th>
+                                    <th>Image</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for partenaire in partenaires %}
+                                <tr>
+                                    <td>{{ partenaire.id }}</td>
+                                    <td>{{ partenaire.nom}}</td>
+                                    <td>{{ partenaire.tel}}</td>
+                                    <td>{{ partenaire.don}}</td> 
+                                    <td>{{ partenaire.image}}</td> 
+                                    <td>
+                                        <a href="{{ path('app_partenaire_show', {'id': partenaire.id}) }}" class="btn btn-primary btn-sm">Voir</a>
+                                        <a href="{{ path('app_partenaire_edit', {'id': partenaire.id}) }}" class="btn btn-info btn-sm">Modifier</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">Aucun contrat trouvé</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_contrat_new') }}" class="btn btn-success">Créer un nouveau contrat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
