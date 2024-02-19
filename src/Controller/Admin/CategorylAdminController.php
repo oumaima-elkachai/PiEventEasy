@@ -29,7 +29,7 @@ class CategorylAdminController extends AbstractController
         ]);
     }
     #[Route('/addformcat', name: 'addformCat')]
-    public function addformroom(ManagerRegistry $managerRegistry, Request $req): Response
+    public function addformcat(ManagerRegistry $managerRegistry, Request $req): Response
     {
         $x = $managerRegistry->getManager();
         $cat = new CategoryL();

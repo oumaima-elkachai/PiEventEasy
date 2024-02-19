@@ -1,0 +1,28 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <h1 class="section-title">Résultats de la recherche pour "{{ keyword }}"</h1>
+
+        <div class="album py-5 bg-light">
+            <div class="post-container">
+                <div class="row">
+                    {% for place in lieu %}
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="margin-left: 30px;">
+                        <div class="card mb-4 shadow-sm" style="width: 300px;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ place.nom }}</h5>
+                                <p class="card-text">Capacity{{ place.capacity}}</p>
+                                <p class="card-text">Price: {{ place.prix }}</p>
+                                <a class="btn btn-primary">Réserver</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
