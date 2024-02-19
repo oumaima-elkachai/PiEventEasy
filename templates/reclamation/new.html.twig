@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}EvenatEasy{% endblock %}
+
+{% block body %}
+    <section id="main-carousel2" class="main-carousel2 clearfix">
+        <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
+            <div class="overlay-black">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="reg-form">
+                                <div class="from-title">
+                                    <h2 class="title-text"><strong>SUBMIT</strong> <strong>YOUR</strong> <strong>COMPLAINT</strong> </h2>
+                                </div>
+                                {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+                                <div class="form-wrapper mb-30">
+                                    <div class="form-item">
+                                        <label for="Event Title" class="form-label">Add your complaint</label>
+                                        {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+                                
+                                        {{ form_errors(form.description) }}
+                                    </div>
+                                    <div class="form-item">
+                                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                                    </div>
+
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+{% endblock %}

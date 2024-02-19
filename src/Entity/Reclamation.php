@@ -23,6 +23,11 @@ class Reclamation
     #[ORM\ManyToOne(inversedBy: 'reclamation')]
     private ?User $user = null;
 
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,7 +50,7 @@ class Reclamation
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 

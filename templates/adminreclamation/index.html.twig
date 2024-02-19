@@ -1,0 +1,63 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}EvenatEasy{% endblock %}
+
+{% block body %}
+    <section id="main-carousel2" class="main-carousel2 clearfix">
+        <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
+            <div class="overlay-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h1 class="card-title">Liste des Réclamations</h1>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for reclamation in reclamations %}
+                                                <tr>
+                                                    <td>{{ reclamation.id }}</td>
+                                                    <td>{{ reclamation.description }}</td>
+                                                    <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                                                    <td>
+                                                        <a href="{{ path('app_reclamation_showadmin', {'id': reclamation.id}) }}" class="btn btn-info btn-sm">
+                                                            <i class="bi bi-eye"></i> Show
+                                                        </a>
+                                                        <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#responseModal">
+                                                            <i class="bi bi-pencil"></i> Response
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="4">No records found</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+            <tr>
+                <td colspan="4">
+                    {{ knp_pagination_render(reclamations) }}
+                </td>
+            </tr>
+        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

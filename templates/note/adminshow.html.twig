@@ -1,0 +1,28 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Note{% endblock %}
+
+{% block body %}
+    <h1>Note</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ note.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ note.description }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ note.date ? note.date|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_note_adminnote') }}">back to list</a>
+
+    {{ include('note/_delete_form.html.twig') }}
+{% endblock %}
