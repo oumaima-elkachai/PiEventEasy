@@ -18,8 +18,8 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private array $roles = [];
+   /* #[ORM\Column]
+    private array $roles = [];*/
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
@@ -62,7 +62,7 @@ class User
         return $this;
     }
 
-    public function getRoles(): array
+   /* public function getRoles(): array
     {
         return $this->roles;
     }
@@ -72,7 +72,7 @@ class User
         $this->roles = $roles;
 
         return $this;
-    }
+    }*/
 
     public function getPassword(): ?string
     {

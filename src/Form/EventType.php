@@ -35,7 +35,8 @@ class EventType extends AbstractType
                   'choice_label' =>'Type',
                   'label'=>'Type',
 
-])   
+])           
+
             ->add('Submit',SubmitType::class); 
            // ->add('lieu')
            // ->add('userid')

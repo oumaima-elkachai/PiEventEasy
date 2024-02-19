@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Entity\CategoryE;
+use App\Repository\UserRepository;
 
 class EventController extends AbstractController
 {
@@ -21,11 +22,13 @@ class EventController extends AbstractController
             'controller_name' => 'EventController',
         ]);
     }
-    #[Route('/add', name: 'add')]
-    public function add( ManagerRegistry $managerRegistry,Request $req): Response
+    #[Route('/add/{id}', name: 'add')]
+    public function add( $id,ManagerRegistry $managerRegistry,Request $req, UserRepository $UserRepository): Response
     { 
-        $x=$managerRegistry->getManager();//appelle manager registry ili yaamel delete wala mise a jour
+        $x=$managerRegistry->getManager();
+        $user=$UserRepository->find($id);
         $event=new Event();//instance 
+        $event->setUserid($user);
         $form = $this->createForm(EventType::class,$event);
         $form->handleRequest($req);
         
@@ -78,15 +81,13 @@ class EventController extends AbstractController
         }
     
     } 
-    #[Route('/showbyid/{id}', name: 'showbyid')]
-    public function showbyid($id,EventRepository $EventRepository , ManagerRegistry $managerRegistry): Response
+    #[Route('/showbyid/{userid}', name: 'showbyid')]
+    public function showbyid($userid, EventRepository $eventRepository, ManagerRegistry $managerRegistry): Response
     {
-        $em=$managerRegistry->getManager();
-        $evenement = $EventRepository->find($id);
-        $em->persist($evenement);
-        $em->flush();
+        $events = $eventRepository->findBy(['userid' => $userid]);
+       
         return $this->render('client/showbyid.html.twig', [
-            'evenement' => $evenement,
+            'evenement' => $events,
         ]);
     }
     #[Route('/showB', name: 'showB')]

@@ -21,8 +21,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Datatables</h5>
-            <p>Ajoutez des DataTables légères à votre projet en utilisant la bibliothèque <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a>. Il suffit d'ajouter la classe <code>.datatable</code> à n'importe quelle table que vous souhaitez convertir en datatable.</p>
-
+         
             <!-- Table with stripped rows -->
             <table class="table datatable">
               <thead>
@@ -32,6 +31,7 @@
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
                   <th scope="col">Date</th>
+                  <th scope="col">Category</th>
                   <th scope="col">Edit</th>
                   <th scope="col">Delete</th>
                 </tr>
@@ -44,6 +44,13 @@
                   <td>{{ a.email }}</td>
                   <td>{{ a.phone }}</td>
                   <td>{{ a.Date|date('Y-m-d') }}</td>
+                  <td>
+                    {% if a.categoryid is not null %}
+                      {{ a.categoryid.type }}
+                    {% else %}
+                      Category ID is null
+                    {% endif %}
+                  </td>
                   <td><a class="btn btn-success" href="{{ path('editB', {'id': a.id}) }}">EDIT</a></td>
                   <td><a class="btn btn-danger" href="{{ path('deleteB', {'id': a.id}) }}">DELETE</a></td>
                 </tr>

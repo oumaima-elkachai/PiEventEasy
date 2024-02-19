@@ -23,7 +23,7 @@ class Event
 #[Assert\Type(type: "string", message: "Le titre doit être une chaîne de caractères.")]
 #[Assert\Regex(
     pattern: "/^[a-zA-Z\s]+$/",
-    message: "Le titre ne doit contenir que des lettres et des espaces."
+    message: "Le titre ne doit contenir que des lettres ."
 )]
 private ?string $Title = null;
 
@@ -37,8 +37,13 @@ private ?string $Email = null;
 #[Assert\Type(type: "integer", message: "Le numéro de téléphone doit être un nombre.")]
 private ?int $Phone = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $Date = null;
+
+
+#[ORM\Column(type: Types::DATE_MUTABLE)]
+#[Assert\NotBlank(message: "La date est requise")]
+#[Assert\GreaterThan("today", message: "La date de l'événement doit être postérieure à aujourd'hui.")]
+private ?\DateTimeInterface $Date = null;
+
 
     #[ORM\ManyToOne]
     private ?CategoryE $categoryid = null;
