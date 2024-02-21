@@ -27,9 +27,9 @@ class AllocationType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image (JPEG, PNG, GIF)',
-                'mapped' => false, // Tell Symfony not to try to map this field to any entity property
-                'required' => false, // Set to true if the image is required
-                'attr' => ['accept' => 'images/*'], // Restrict file types to images
+                'mapped' => false, 
+                'required' => false, 
+                'attr' => ['accept' => 'images/*'], 
             ])
 
             ->add('save',SubmitType::class)

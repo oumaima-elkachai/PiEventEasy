@@ -40,7 +40,6 @@ class AllocationController extends AbstractController
             if ($imageFile) {
                 $newFilename = uniqid().'.'.$imageFile->guessExtension();
 
-               
                 try {
                     $imageFile->move(
                         $this->getParameter('images_directory'),
