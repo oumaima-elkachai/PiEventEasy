@@ -37,6 +37,7 @@ class Lieu
     
 
     #[ORM\Column(length: 255)]
+
     private ?string $image = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

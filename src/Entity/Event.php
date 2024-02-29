@@ -34,11 +34,13 @@ class Event
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: Allocation::class)]
     private Collection $allocation;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Lieu $lieu = null;
+    
 
     #[ORM\ManyToOne]
     private ?User $userid = null;
+
+    #[ORM\ManyToOne]
+    private ?Lieu $Lieu = null;
 
     public function __construct()
     {
@@ -140,18 +142,6 @@ class Event
         return $this;
     }
 
-    public function getLieu(): ?Lieu
-    {
-        return $this->lieu;
-    }
-
-    public function setLieu(?Lieu $lieu): static
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
     public function getUserid(): ?User
     {
         return $this->userid;
@@ -160,6 +150,18 @@ class Event
     public function setUserid(?User $userid): static
     {
         $this->userid = $userid;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->Lieu;
+    }
+
+    public function setLieu(?Lieu $Lieu): static
+    {
+        $this->Lieu = $Lieu;
 
         return $this;
     }
