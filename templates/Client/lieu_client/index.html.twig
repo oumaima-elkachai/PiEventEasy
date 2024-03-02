@@ -104,7 +104,7 @@
                                 <h5 class="card-title yellow-color">{{ lieu.nom }} ,{{ lieu.region }}</h5>
                                 <p class="card-text">Capacity: {{ lieu.capacity}}</p>
                                 <p class="card-text">Prix: {{ lieu.prix }}</p>
-                                <a href="#!"  class="btn btn-outline-warning">Réserver</a>
+                                <a href="{{path ('booking',{'lieuId': lieu.id})}}"  class="btn btn-outline-warning">Réserver</a>
                                
                             </div>
                         </div>

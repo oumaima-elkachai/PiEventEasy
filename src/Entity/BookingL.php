@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\BookingLRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookingLRepository::class)]
 class BookingL
@@ -12,6 +13,11 @@ class BookingL
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="Auto")
+     * @ORM\Column(type="integer")
+     */
     private ?int $id = null;
 
     #[ORM\Column]
@@ -21,10 +27,15 @@ class BookingL
     private ?\DateTimeInterface $DateD = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\GreaterThan(propertyPath="DateD", message="La date de fin doit être postérieure à la date de début.")
+     */
     private ?\DateTimeInterface $DateF = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Lieu $lieub = null;
 
     public function getId(): ?int
     {
@@ -67,14 +78,16 @@ class BookingL
         return $this;
     }
 
-    public function getStatus(): ?string
+    
+
+    public function getLieub(): ?Lieu
     {
-        return $this->status;
+        return $this->lieub;
     }
 
-    public function setStatus(string $status): static
+    public function setLieub(?Lieu $lieub): static
     {
-        $this->status = $status;
+        $this->lieub = $lieub;
 
         return $this;
     }

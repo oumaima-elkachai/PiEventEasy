@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LieuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,6 +68,44 @@ class Lieu
      * @Assert\NotBlank(message="La région est requise")
      */
     private ?string $region = null;
+    #[ORM\OneToMany(targetEntity:BookingL::class,mappedBy: 'lieub')]
+    private Collection $bookings;
+
+    public function __construct()
+    {
+        $this->bookings = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|BookingL[]
+     */
+    
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(BookingL $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setLieub($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(BookingL $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getLieub() === $this) {
+                $booking->setLieub(null);
+            }
+        }
+
+        return $this;
+    }
    
 
     public function getId(): ?int

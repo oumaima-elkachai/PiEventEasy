@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation Summary{% endblock %}
+
+{% block body %}
+<section id="booking-section" class="booking-section bg-gray-light sec-ptb-100 clearfix">
+			<div class="container">
+				<div class="row">
+
+					<!-- booking-content-wrapper - start -->
+					<div class="col-lg-8 col-md-12 col-sm-12">
+						<div class="booking-content-wrapper">
+
+							<!-- order-summary - start -->
+							<div class="order-summary mb-50">
+								<!-- section-title - start -->
+								<div class="section-title mb-30">
+									<h2 class="big-title">Reservation <strong>summary</strong></h2>
+								</div>
+								<!-- section-title - end -->
+								<div class="order-summary-table table-responsive">
+
+									<table class="table text-center">
+										<thead>
+											<tr>
+												<th scope="col">Place</th>
+												<th scope="col">price</th>
+												<th scope="col">Start Date</th>
+												<th scope="col">End Date</th>
+												<th scope="col">Total price</th>
+                                                <th scope="col">Modifier</th>
+                                                <th scope="col">Delete </th>
+                                                
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="bg-gray-light">
+												<th scope="row">Harmoni Package 1</th>
+                                                <td>{{ booking.prix }}</td>
+												<td>{{ booking.DateD|date('d/m/Y') }}</td>
+												<td>{{ booking.DateF|date('d/m/Y') }}</td>
+												<td><input type="text" value="5"></td>
+												<td>$675.00</td>
+                                                <td>$675.00</td>
+                                                <td>$675.00</td>
+											</tr>
+											<tr class="tfooter">
+												<th colspan="4" class="text-left">Total</th>
+												<td>$2,575.00</td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+							<!-- order-summary - end -->
+							
+						</div>
+					</div>
+					<!-- booking-content-wrapper - end -->
+					
+				</div>
+			</div>
+		</section>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+{% block title %}New Booking{% endblock %}
+{% block body %}
+<section id="breadcrumb-section" class="breadcrumb-section clearfix">
+	<div class="jarallax" style="background-image: url(Client/assets/images/breadcrumb/0.breadcrumb-bg.jpg); ">
+		<div class="overlay-black">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 col-md-12 col-sm-12">
+
+						<!-- breadcrumb-title - start -->
+						<div class="breadcrumb-title text-center mb-50">
+							<span class="sub-title">ticket booking</span>
+							<h2 class="big-title">Event <strong>Easy</strong></h2>
+						</div>
+						<!-- breadcrumb-title - end -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	<div id="jarallax-container-0" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: -100;"><div style="background-position: 50% 50%; background-size: cover; background-repeat: no-repeat; background-image: url(&quot;file:///C:/Users/USER/Desktop/My%20Web%20Sites/event/jthemes.net/themes/html/harmony-event/assets/images/breadcrumb/0.breadcrumb-bg.jpg&quot;); position: fixed; top: 0px; left: 0px; width: 741px; height: 549.817px; overflow: hidden; pointer-events: none; margin-top: 48.0914px; transform: translate3d(0px, -18.6914px, 0px);"></div></div></div>
+</section>
+
+<section id="booking-section" class="booking-section bg-gray-light sec-ptb-100 clearfix">
+	<div class="container">
+		<div class="reg-info mb-50">
+
+    <!-- section-title - start -->
+    <div class="section-title mb-30">
+        <h2 class="big-title">Make <strong>Reservation</strong></h2>
+    </div>
+    <!-- section-title - end -->
+
+    <!-- row - start -->
+    <div class="row justify-content-center mt-4"> <!-- Ajout de la classe 'mt-4' pour un espacement en haut -->
+
+	</br>  <!-- ticket-buying-form - start -->
+	
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="ticket-buying-form form-wrapper">
+                <h3 class="form-title"></h3>
+                {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+				<div class="row mb-3">
+					<div class="col-sm-10">
+							<h2 class="big-title"> <strong>{{ lieu.nom }} </strong></h2>
+					</div>
+					<h2 class="big-title"> {{ lieu.prix }} $</h2>
+											
+					</div>
+				</div>
+				
+
+                
+                <div class="row mb-3">
+                    <label for="inputDate" class="col-sm-2 col-form-label">Start Date</label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.DateD,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputDate" class="col-sm-2 col-form-label">End Date</label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.DateF,{'attr':{'class':'form-control'}}) }}
+						{{form_errors(form.DateF)}}
+                    </div>.
+                </div>
+               
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">Total Price</label>
+					<div class="col-sm-10">
+                    	{{ form_widget(form.prix, {'attr': {'class': 'form-control', 'readonly': true}}) }}
+
+					</div>
+                </div>
+				</br>
+				
+            </div>
+        </div>
+        <!-- ticket-buying-form - end -->
+
+    </div>
+</br>
+    <!-- row - end -->
+    <div class="text-center">
+		
+		<a href="{{ path('booking_confirmation') }}" class="custom-btn">
+			{{ form_widget(form.save) }}
+		</a>
+		
+    </div>
+    {{ form_end(form) }}
+		</div>
+		
+	</div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var dateDebutInput = document.getElementById('booking_DateD');
+    var dateFinInput = document.getElementById('booking_DateF');
+    var prixInput = document.getElementById('booking_prix');
+
+    // Fonction pour recalculer le montant total lorsque les dates changent
+    function recalculerMontantTotal() {
+        // Récupérer les valeurs des champs de date de début et de fin
+        var dateDebutValue = new Date(dateDebutInput.value);
+        var dateFinValue = new Date(dateFinInput.value);
+
+        // Vérifier si les dates sont valides et que la date de fin est postérieure à la date de début
+        if (!isNaN(dateDebutValue.getTime()) && !isNaN(dateFinValue.getTime()) && dateFinValue > dateDebutValue) {
+            // Calculer la différence de jours entre les deux dates
+            var differenceJours = Math.floor((dateFinValue - dateDebutValue) / (1000 * 60 * 60 * 24));
+
+            // Calculer le montant total en fonction de la différence de jours et du prix par nuit
+            var prixTotal = differenceJours * parseFloat(prixInput.value);
+
+            // Mettre à jour le champ de montant total dans le formulaire
+            prixInput.value = prixTotal.toFixed(2);
+        } else {
+            // Afficher un message d'erreur si les dates ne sont pas valides
+            console.error('Les dates ne sont pas valides ou la date de fin est antérieure à la date de début.');
+        }
+    }
+
+    // Ajouter un écouteur d'événements aux champs de date de début et de fin
+    dateDebutInput.addEventListener('change', recalculerMontantTotal);
+    dateFinInput.addEventListener('change', recalculerMontantTotal);
+});
+
+
+</script>
+
+
+
+{% endblock %}

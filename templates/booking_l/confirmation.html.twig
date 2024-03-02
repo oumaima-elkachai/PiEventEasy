@@ -1,0 +1,17 @@
+{# templates/booking_l/confirmation.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de réservation{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Votre réservation a été effectuée avec succès !</h1>
+                <p>Merci de votre réservation.</p>
+                <p>Vous pouvez revenir à <a href="{{ path('app_lieu_client') }}">la page d'accueil</a>.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
