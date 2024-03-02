@@ -3,7 +3,7 @@
 
 {% block body %}
     <section id="main-carousel2" class="main-carousel2 clearfix">
-        <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
+        <div class="item" style="background-image: url('{{ asset('Client/assets/images/slider/slider-bg4.jpg') }}');">
             <div class="overlay-black">
                 <div class="container">
                     <div class="row">
@@ -35,6 +35,8 @@
                                     <div class="form-item">  
                                         <label for="Date Event" class="form-label">Date Event</label>
                                         {{ form_widget(form.Date,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Date #}
+                                        {{ form_errors(form.Date) }}
                                     </div>
                                     <div class="form-item">  
                                         <label for="categoryid" class="form-label">Category</label>

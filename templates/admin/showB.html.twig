@@ -13,7 +13,7 @@
         <li class="breadcrumb-item active">Data</li>
       </ol>
     </nav>
-  </div><!-- End Page Title -->
+  </div>
 
   <section class="section">
     <div class="row">
@@ -57,6 +57,8 @@
                 {% endfor %}
               </tbody>
             </table>
+                <a href="{{ path('generate_pdf')}}" class="btn btn-primary">Pdf</a>
+
             <!-- End Table with stripped rows -->
           </div>
         </div>
@@ -64,4 +66,5 @@
     </div>
   </section>
 </main><!-- End #main -->
+
 {% endblock %}

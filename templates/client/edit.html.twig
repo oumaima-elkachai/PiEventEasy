@@ -1,281 +1,57 @@
-
-
-
-
-
-
-
 {% extends 'base.html.twig' %}
-{% block title %}EvenatEasy
-{% endblock %}
-
+{% block title %}EvenatEasy{% endblock %}
 
 {% block body %}
-
-
-
-
-
-
-		<!-- slide-section - start
-		================================================== -->
-		<section id="main-carousel2" class="main-carousel2 clearfix">
-
-			<div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
-				<div class="overlay-black">
-					<div class="container">
-						<div class="row">
-
-							<!-- reg-form - start -->
-							<div class="col-lg-4 col-md-12 col-sm-12">
-								<div class="reg-form">
-
-									<div class="from-title">
-										<h2 class="title-text"><strong>register</strong> now</h2>
-										<div class="sub-title">make a booking now</div>
-									</div>
-
-                                    {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
-
-									<div class="form-wrapper mb-30">
-										
-
-											<div class="form-item">
-												<label for="Event Title" class="form-label">Title</label>
-												{{ form_widget(form.Title,{'attr':{'class':'form-control'}}) }}
-											</div>
-
-											<div class="form-item">
-												<label for="Email Adress " class="form-label">Email Adress</label>
-												{{ form_widget(form.Email,{'attr':{'class':'form-control'}}) }}
-											</div>
-
-											<div class="form-item">
-												<label for="Phone Number" class="form-label">Phone Number</label>
-												{{ form_widget(form.Phone ,{'attr':{'class':'form-control'}}) }}
-											</div>
-
-                                            <div class="form-item">	
-												<label for="Date Event" class="form-label">Date Event</label>
-												{{ form_widget(form.Date ,{'attr':{'class':'form-control'}}) }}
-											</div>
-											 <div class="form-item">	
-												<label for="categoryid" class="form-label">Category</label>
-												{{ form_widget(form.categoryid ,{'attr':{'class':'form-control'}}) }}
-											</div>
-                                            
-											
-                                            
-                                            <div class="rahouma">
-                                       
-										{{ form_widget(form.Submit, {'attr': {'class': 'btn btn-primary'}}) }}
+    <section id="main-carousel2" class="main-carousel2 clearfix">
+        <div class="item" style="background-image: url('{{ asset('Client/assets/images/slider/slider-bg4.jpg') }}');">
+            <div class="overlay-black">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="reg-form">
+                                <div class="from-title">
+                                    <h2 class="title-text"><strong>CREATE</strong> <strong>YOUR</strong> <strong>EVENT</strong> </h2>
+                                </div>
+                                {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+                                <div class="form-wrapper mb-30">
+                                    <div class="form-item">
+                                        <label for="Event Title" class="form-label">Title</label>
+                                        {{ form_widget(form.Title,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Title #}
+                                        {{ form_errors(form.Title) }}
                                     </div>
-									
-										 {{ form_end(form) }}
-											
-										
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-
-		</section>
-		<!-- slide-section - end
-		================================================== -->
-
-
-
-
-
-
-		
-
-
-
-
-		
-
-
-
-
-		<!-- event-gallery-section - start
-		================================================== -->
-		<section id="event-gallery-section" class="event-gallery-section sec-ptb-100 clearfix">
-			<div class="container">
-				<div class="mb-50">
-					<div class="row">
-
-						<!-- section-title - start -->
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="section-title">
-								<small class="sub-title">EventEasy Gallery</small>
-								<h2 class="big-title">Make Ingorgettable Memories With Eventasy </h2>
-							</div>
-						</div>
-						<!-- section-title - end -->
-
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="button-group filters-button-group">
-								<button class="button is-checked" data-filter="*">
-									<i class="fas fa-star"></i>
-									<strong>all</strong> gallery
-								</button>
-
-
-								<button class="button" data-filter=".video-gallery">
-									<i class="fas fa-play-circle"></i>
-									<strong>video</strong> gallery
-								</button>
-								 
-                                 
-                                 <button class="button" data-filter=".photo-gallery">
-									<i class="far fa-image"></i>
-									<strong>photo</strong> gallery
-								</button>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-			<div class="grid zoom-gallery clearfix mb-80" data-isotope="{ &quot;masonry&quot;: { &quot;columnWidth&quot;: 0 } }">
-				<div class="grid-item grid-item--height2 photo-gallery " data-category="photo-gallery">
-					<a class="popup-link" href="images/gallery/2.jpg">
-						<img src="images/gallery/2.jpg" alt="Image_not_found">
-					</a>
-					<div class="item-content">
-						<h3>Party day</h3>
-						
-					</div>
-				</div>
-				
-				<div class="grid-item photo-gallery " data-category="photo-gallery">
-					<a class="popup-link" href="images/gallery/5.jpg">
-						<img src="images/gallery/5.jpg" alt="Image_not_found">
-					</a>
-					<div class="item-content">
-						<h3> Soft Skills  </h3>
-						
-					</div>
-				</div>
-
-				<div class="grid-item photo-gallery " data-category="photo-gallery">
-					<a class="popup-link" href="images/gallery/4.image.jpg">
-						<img src="images/gallery/4.image.jpg" alt="Image_not_found">
-					</a>
-					<div class="item-content">
-						<h3> Meeting Day  </h3>
-						
-					</div>
-				</div>
-				
-				<div class="grid-item grid-item--width2 photo-gallery " data-category="photo-gallery">
-					<a class="popup-link" href="images/gallery/6.image.jpg">
-						<img src="images/gallery/6.image.jpg" alt="Image_not_found">
-					</a>
-					<div class="item-content">
-						<h3>Event Day </h3>
-						
-					</div>
-				</div>
-				<div class="grid-item video-gallery " data-category="video-gallery">
-					<a class="popup-youtube" href="https://youtu.be/-haiaZ011OM">
-						<img src="images/gallery/ev4.jpg" alt="Image_not_found">
-					</a>
-					<div class="item-content">
-						<h3>New Year Celebration</h3>
-						
-					</div>
-				</div>
-				<div class="grid-item photo-gallery " data-category="photo-gallery">
-					<a class="popup-link" href="images/gallery/3.jpg">
-						<img src="images/gallery/3.jpg" alt="Image_not_found">
-					</a>
-					<div class="item-content">
-						<h3> Wedding day</h3>
-						
-					</div>
-				</div>
-
-			
-
-		</section>
-		<!-- event-gallery-section - end
-		================================================== -->
-
-
-
-
-
-		
-
-
-
-
-
-		
-
-
-
-
-
-		
-
-
-
-		
-
-
-
-
-
-		
-
-
-
-
-
-		
-
-
-
-
-		
-
-
-
-
-		
-
-
-
-
-		
-
-        {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    <div class="form-item">
+                                        <label for="Email Adress" class="form-label">Email Address</label>
+                                        {{ form_widget(form.Email,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Email #}
+                                        {{ form_errors(form.Email) }}
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="Phone Number" class="form-label">Phone Number</label>
+                                        {{ form_widget(form.Phone,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Phone #}
+                                        {{ form_errors(form.Phone) }}
+                                    </div>
+                                    <div class="form-item">  
+                                        <label for="Date Event" class="form-label">Date Event</label>
+                                        {{ form_widget(form.Date,{'attr':{'class':'form-control'}}) }}
+                                        {# Afficher les erreurs du champ Date #}
+                                        {{ form_errors(form.Date) }}
+                                    </div>
+                                    <div class="form-item">  
+                                        <label for="categoryid" class="form-label">Category</label>
+                                        {{ form_widget(form.categoryid,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                    <div class="rahouma">
+                                        {{ form_widget(form.Submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                                    </div>
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+{% endblock %}

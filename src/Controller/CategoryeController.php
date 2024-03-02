@@ -23,8 +23,8 @@ class CategoryeController extends AbstractController
     #[Route('/addCB', name: 'addCB')]
     public function add( ManagerRegistry $managerRegistry,Request $req): Response
     { 
-        $x=$managerRegistry->getManager();//appelle manager registry ili yaamel delete wala mise a jour
-        $category=new CategoryE();//instance 
+        $x=$managerRegistry->getManager();
+        $category=new CategoryE();
         $form = $this->createForm(CategoryEType::class,$category);
         $form->handleRequest($req);
         

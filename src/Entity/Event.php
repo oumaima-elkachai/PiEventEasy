@@ -19,7 +19,7 @@ class Event
 
    
 #[ORM\Column(length: 255)]
-#[Assert\NotBlank(message: "Le titre est requis")]
+#[Assert\NotBlank(message: "Vous devez saisir le titre ")]
 #[Assert\Type(type: "string", message: "Le titre doit être une chaîne de caractères.")]
 #[Assert\Regex(
     pattern: "/^[a-zA-Z\s]+$/",
@@ -28,19 +28,19 @@ class Event
 private ?string $Title = null;
 
 #[ORM\Column(length: 255)]
-#[Assert\NotBlank(message: "L'email est requis")]
+#[Assert\NotBlank(message: "Vous devez saisir l'email ")]
 #[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
 private ?string $Email = null;
 
 #[ORM\Column(type: "integer")]
-#[Assert\NotBlank(message: "Le numéro de téléphone est requis")]
+#[Assert\NotBlank(message: "Vous devez saisir le numero telephone ")]
 #[Assert\Type(type: "integer", message: "Le numéro de téléphone doit être un nombre.")]
 private ?int $Phone = null;
 
 
 
 #[ORM\Column(type: Types::DATE_MUTABLE)]
-#[Assert\NotBlank(message: "La date est requise")]
+#[Assert\NotBlank(message: "Vous devez saisir la date ")]
 #[Assert\GreaterThan("today", message: "La date de l'événement doit être postérieure à aujourd'hui.")]
 private ?\DateTimeInterface $Date = null;
 

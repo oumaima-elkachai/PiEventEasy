@@ -26,9 +26,7 @@ class EventType extends AbstractType
             ->add('Date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'constraints' => [
-                    new GreaterThanOrEqual(['value' => 'today', 'message' => 'La date doit être aujourd\'hui ou ultérieure.'])
-                ]
+                
             ])
            
            ->add('categoryid', EntityType::class,['class' =>CategoryE::class,
@@ -38,8 +36,7 @@ class EventType extends AbstractType
 ])           
 
             ->add('Submit',SubmitType::class); 
-           // ->add('lieu')
-           // ->add('userid')
+          
         ;   
     }
 
