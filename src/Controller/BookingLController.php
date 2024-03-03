@@ -7,6 +7,7 @@ use App\Entity\Lieu;
 use App\Form\BookingType;
 use App\Repository\BookingLRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BookingLController extends AbstractController
 {
+    private $flashy;
+
+    public function __construct(FlashyNotifier $flashy)
+    {
+        $this->flashy = $flashy;
+    }
     #[Route('/booking/{lieuId}', name: 'booking')]
-    public function booking(Request $request, EntityManagerInterface $entityManager, $lieuId): Response
+    public function booking(Request $request, EntityManagerInterface $entityManager,BookingLRepository $bookingRepository, $lieuId,FlashyNotifier $flashy): Response
     {
         $lieu = $entityManager->getRepository(Lieu::class)->find($lieuId);
 
@@ -32,8 +39,25 @@ class BookingLController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             // Vérifier s'il existe déjà une réservation pour le même lieu et la même date
+             $existingBookings = $bookingRepository->findBy([
+                'lieub' => $lieu,
+                'DateD' => $booking->getDateD(),
+                'DateF' => $booking->getDateF(),
+            ]);
+             // Vérifier si une réservation existante chevauche la nouvelle réservation
+            foreach ($existingBookings as $existingBooking) {
+                if ($existingBooking->getDateD() <= $booking->getDateF() && $existingBooking->getDateF() >= $booking->getDateD()) {
+                    $this->addFlash('delete','Une réservation existe déjà pour ce lieu et cette période.');
+                    return $this->redirectToRoute('booking', [
+                        'lieuId' => $lieuId,
+                    ]);
+            }
+            }
+            // Enregistrer la nouvelle réservation
             $entityManager->persist($booking);
             $entityManager->flush();
+            
 
             // Rediriger l'utilisateur vers une page de confirmation
             return $this->redirectToRoute('booking_confirmation');
@@ -43,6 +67,7 @@ class BookingLController extends AbstractController
             'form' => $form->createView(),
             'lieu' => $lieu,
             'booking' => $booking,
+            'error' => $request->query->get('error'),
         ]);
     }
 

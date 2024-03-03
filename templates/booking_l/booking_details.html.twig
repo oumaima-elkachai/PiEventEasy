@@ -37,6 +37,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                    {% for booking in book%}
                     <tr>
                         <td>{{ booking.id }}</td>
                         <td>{{ booking.DateD|date('d/m/Y') }}</td>

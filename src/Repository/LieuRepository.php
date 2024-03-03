@@ -22,15 +22,24 @@ class LieuRepository extends ServiceEntityRepository
     }
     
 
-    public function search($keyword)
+    /**
+     * Find Lieux by keyword.
+     *
+     * @param string $keyword
+     * @return array
+     */
+    public function findByKeyword(string $keyword): array
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.nom LIKE :keyword')
-            ->orWhere('p.category LIKE :keyword')
-            ->orWhere('p.region LIKE :keyword')
-            ->setParameter('keyword', '%'.$keyword.'%')
-            ->getQuery()
-            ->getResult();
+        // Create a query builder
+        $qb = $this->createQueryBuilder('l');
+
+        // Add a WHERE clause to filter by keyword
+        $qb->where('l.nom LIKE :keyword')
+           ->orWhere('l.region LIKE :keyword')
+           ->setParameter('keyword', '%' . $keyword . '%');
+
+        // Execute the query
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

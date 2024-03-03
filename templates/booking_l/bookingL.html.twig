@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}New Booking{% endblock %}
 {% block body %}
+
 <section id="breadcrumb-section" class="breadcrumb-section clearfix">
 	<div class="jarallax" style="background-image: url(Client/assets/images/breadcrumb/0.breadcrumb-bg.jpg); ">
 		<div class="overlay-black">
@@ -10,7 +11,7 @@
 
 						<!-- breadcrumb-title - start -->
 						<div class="breadcrumb-title text-center mb-50">
-							<span class="sub-title">ticket booking</span>
+							<span class="sub-title">booking</span>
 							<h2 class="big-title">Event <strong>Easy</strong></h2>
 						</div>
 						<!-- breadcrumb-title - end -->
@@ -22,9 +23,28 @@
 	<div id="jarallax-container-0" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: -100;"><div style="background-position: 50% 50%; background-size: cover; background-repeat: no-repeat; background-image: url(&quot;file:///C:/Users/USER/Desktop/My%20Web%20Sites/event/jthemes.net/themes/html/harmony-event/assets/images/breadcrumb/0.breadcrumb-bg.jpg&quot;); position: fixed; top: 0px; left: 0px; width: 741px; height: 549.817px; overflow: hidden; pointer-events: none; margin-top: 48.0914px; transform: translate3d(0px, -18.6914px, 0px);"></div></div></div>
 </section>
 
+<center>
+	{% for flashType, flashMessages in app.session.flashbag.all() %}
+            {% for flashMessage in flashMessages %}
+                {% if flashType == 'success' %}
+                    <div class="alert alert-success" role="alert">
+                {% elseif flashType == 'delete' %}
+                    <div class="alert alert-delete" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ flashType }}" role="alert">
+                {% endif %}
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+</center>
+
 <section id="booking-section" class="booking-section bg-gray-light sec-ptb-100 clearfix">
 	<div class="container">
 		<div class="reg-info mb-50">
+			
+	
 
     <!-- section-title - start -->
     <div class="section-title mb-30">
@@ -130,6 +150,29 @@
 
 </script>
 
+<style>
+    /* Style for success flash messages */
+    
+    .alert-delete {
 
+        color: #155724;
+        background-color: #d83131;
+        border-color: #c3e6cb;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
 
+    /* Style for delete flash messages */
+    .alert-success {
+        
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+</style>
 {% endblock %}

@@ -4,85 +4,71 @@
 
 <!-- breadcrumb-section - start
 		================================================== -->
-		<section id="breadcrumb-section" class="breadcrumb-section clearfix">
-			<div class="jarallax" style="background-image: url(Client/assets/images/breadcrumb/0.breadcrumb-bg.jpg);">
-				<div class="overlay-black">
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-lg-6 col-md-12 col-sm-12">
+<section id="breadcrumb-section" class="breadcrumb-section clearfix">
+    <div class="jarallax" style="background-image: url(Client/assets/images/breadcrumb/0.breadcrumb-bg.jpg);">
+        <div class="overlay-black">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
 
-								<!-- breadcrumb-title - start -->
-								<div class="breadcrumb-title text-center mb-50">
-									<span class="sub-title">Eventeasy events</span>
-									<h2 class="big-title">Eventeasy <strong>event</strong></h2>
-								</div>
-								<!-- breadcrumb-title - end -->
+                        <!-- breadcrumb-title - start -->
+                        <div class="breadcrumb-title text-center mb-50">
+                            <span class="sub-title">Eventeasy events</span>
+                            <h2 class="big-title">Eventeasy <strong>event</strong></h2>
+                        </div>
+                        <!-- breadcrumb-title - end -->
 
-								<!-- breadcrumb-list - start -->
-								<div class="breadcrumb-list">
-									<ul>
-										<li class="breadcrumb-item"><a href="index-1.html" class="breadcrumb-link">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Places</li>
-									</ul>
-								</div>
-								<!-- breadcrumb-list - end -->
+                        <!-- breadcrumb-list - start -->
+                        <div class="breadcrumb-list">
+                            <ul>
+                                <li class="breadcrumb-item"><a href="index-1.html" class="breadcrumb-link">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Places</li>
+                            </ul>
+                        </div>
+                        <!-- breadcrumb-list - end -->
 
-							</div>
-						</div>
-					</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb-section - end ================================================== -->
+
+<section id="event-search-section" class="event-search-section clearfix" style="background-image: url(Client/assets/images/special-offer-bg.png);">
+	<div class="container">
+		<div class="row">
+
+			<!-- section-title - start -->
+			<div class="col-lg-4 col-md-12 col-sm-12">
+				<div class="section-title">
+					<small class="sub-title">Find best Places on EventEasy</small>
+					<h2 class="big-title">Places <strong>Search</strong></h2>
 				</div>
 			</div>
-		</section>
-		<!-- breadcrumb-section - end
-		================================================== -->
+			<!-- section-title - end -->
 
-
-
-
-
-		<!-- event-search-section - start
-		================================================== -->
-		<section id="event-search-section" class="event-search-section clearfix" style="background-image: url(Client/assets/images/special-offer-bg.png);">
-			<div class="container">
-				<div class="row">
-
-					<!-- section-title - start -->
-					<div class="col-lg-4 col-md-12 col-sm-12">
-						<div class="section-title">
-							<small class="sub-title">Find best places on Eventeasy</small>
-							<h2 class="big-title">search <strong>Places</strong></h2>
-						</div>
-					</div>
-					<!-- section-title - end -->
-
-					<!-- search-form - start -->
-					<div class="col-lg-8 col-md-12 col-sm-12">
-						<div class="search-form form-wrapper">
-							<form action="#!">
-
-								<ul>
-									<li>
-										<span class="title">places keyword</span>
-										<div class="form-item">
-											<input type="search" placeholder="Place name,location,etc">
-										</div>
-									</li>
-								
-									<li>
-										<button type="submit" class="submit-btn">search now</button>
-									</li>
-								</ul>
-								
-							</form>
-						</div>
-					</div>
-					<!-- search-form - end -->
-					
+			<!-- search-form - start -->
+			<div class="col-lg-8 col-md-12 col-sm-12">
+				<div class="search-form form-wrapper">
+					<form >
+						<ul>
+							<li>
+								<span class="title">Search Here</span>
+								<div class="form-item">
+									<input type="search" placeholder="Search name,location,etc" id="searchlieu">
+								</div>
+							</li>
+						</ul>
+						
+					</form>
 				</div>
 			</div>
-		</section>
-		<!-- event-search-section - end
-		================================================== -->
+			<!-- search-form - end -->
+			
+		</div>
+	</div>
+</section>
 
 
 
@@ -92,20 +78,19 @@
         <div class="album py-5 bg-light">
             <div class="post-container">
                 <div class="row">
-                    {% for lieu in l %}
+                    {% for lieu in pagination %}
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="margin-left: 30px;">
-                        <div class="card mb-4 shadow-sm" style="width: 300px;">
+                        <div class="lieus card mb-4 shadow-sm" style="width: 300px;">
                             {% if lieu.image is defined %}
-                                <img class="card-img-top" src="{{ asset('uploads/' ~ lieu.image) }}" alt="Image du lieu" style="width: 100%; height: 200px; object-fit: cover;">
+                            <img class="card-img-top" src="{{ asset('uploads/' ~ lieu.image) }}" alt="Image du lieu" style="width: 100%; height: 200px; object-fit: cover;">
                             {% else %}
-                                <div class="image-placeholder" style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">Pas d'image disponible</div>
+                            <div class="image-placeholder" style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">Pas d'image disponible</div>
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title yellow-color">{{ lieu.nom }} ,{{ lieu.region }}</h5>
                                 <p class="card-text">Capacity: {{ lieu.capacity}}</p>
                                 <p class="card-text">Prix: {{ lieu.prix }}</p>
                                 <a href="{{path ('booking',{'lieuId': lieu.id})}}"  class="btn btn-outline-warning">Réserver</a>
-                               
                             </div>
                         </div>
                     </div>
@@ -114,7 +99,75 @@
             </div>
         </div>
     </div>
+	<center>
+	<div class="pagination ul-li clearfix">
+		<ul>
+			{{ knp_pagination_render(pagination) }}
+		</ul>
+	</div>
+</center>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to perform the search based on the specified keyword
+        function searchlieu(keyword) {
+            $(".lieus").each(function () {
+                var found = false;
+                // Check if the card title contains the keyword
+                if ($(this).find('.card-title').text().toLowerCase().includes(keyword.toLowerCase())) {
+                    found = true;
+                }
+                // Check if the card text contains the keyword
+                if ($(this).find('.card-text').text().toLowerCase().includes(keyword.toLowerCase())) {
+                    found = true;
+                }
+                $(this).toggle(found); // Show/hide the card based on search result
+            });
+        }
+
+        // Event handler for the search input
+        $("#searchlieu").on("keyup", function () {
+            var searchText = $(this).val();
+            searchlieu(searchText);
+        });
+    });
+</script>
+
+<style>
+    .pagination ul {
+        margin: 20px 0; /* Ajoute une marge en haut et en bas */
+        padding: 0;
+        list-style: none;
+    }
+
+    .pagination ul li {
+        display: inline-block;
+        margin-right: 5px; /* Ajoute un espacement entre les éléments */
+    }
+
+    .pagination ul li.active a {
+        background-color: #007bff; /* Couleur de fond pour la page active */
+        color: #fff; /* Couleur du texte pour la page active */
+        padding: 8px 12px; /* Ajuste le rembourrage */
+        border-radius: 3px; /* Ajoute des coins arrondis */
+    }
+
+    .pagination ul li a {
+        display: inline-block;
+        padding: 6px 10px; /* Ajuste le rembourrage */
+        text-decoration: none;
+        color: #007bff; /* Couleur du texte */
+        border: 1px solid #007bff; /* Ajoute une bordure */
+        border-radius: 3px; /* Ajoute des coins arrondis */
+    }
+
+    .pagination ul li a:hover {
+        background-color: #f0f0f0; /* Couleur de fond au survol */
+    }
+</style>
+
 
 
 {% endblock %}
