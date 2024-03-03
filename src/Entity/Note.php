@@ -23,6 +23,8 @@ class Note
     #[ORM\ManyToOne(inversedBy: 'note')]
     private ?User $user = null;
 
+
+
     public function __construct()
     {
         $this->date = new \DateTime();

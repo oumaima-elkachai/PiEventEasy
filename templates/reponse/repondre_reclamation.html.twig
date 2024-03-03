@@ -1,0 +1,10 @@
+{% extends 'baseAdmin.html.twig' %}
+
+    {% block body %}
+        <h1>Répondre à la réclamation de {{ reclamation.description }}</h1>
+    
+        {{ form_start(form) }}
+        {{ form_row(form.description) }}
+        <button type="submit">Envoyer la réponse</button>
+        {{ form_end(form) }}
+    {% endblock %}

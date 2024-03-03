@@ -8,7 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ReclamationType extends AbstractType
 {
@@ -18,7 +19,14 @@ class ReclamationType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => false,
                 'label' => 'Titre ou description',
-                'allow_extra_fields' => true
+                'constraints' => [
+                    new Assert\Length([
+                        'min' => 5,
+                        'max' => 255,
+                        'minMessage' => 'La description doit avoir au moins {{ limit }} caractères',
+                        'maxMessage' => 'La description ne peut pas avoir plus de {{ limit }} caractères',
+                    ]),
+                ],
             ])
 
             ->add('submit', SubmitType::class, [

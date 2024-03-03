@@ -1,0 +1,10 @@
+{# templates/reponse/modal_reponse.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <h1>Répondre à la réclamation de {{ reclamation.sujet }}</h1>
+    
+        {{ render(controller('App\\Controller\\ReponseController::repondreReclamation', {'reclamationId': reclamation.id})) }}
+    {% endblock %}
+    

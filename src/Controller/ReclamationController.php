@@ -23,9 +23,9 @@ class ReclamationController extends AbstractController
             ->getQuery();
 
         $pagination = $paginator->paginate(
-            $query, // Query
-            $request->query->getInt('page', 1), // Page number
-            5
+            $query,
+            $request->query->getInt('page', 1),
+            4
         );
 
         return $this->render('adminreclamation/index.html.twig', [

@@ -7,3 +7,6 @@ reclamation_index:
 note_index:
   path: /notes/index
   controller: App\Controller\NoteController::index
+repondre_reclamation:
+  path: /repondre-reclamation/{reclamationId}
+  controller: App\Controller\ReponseController::repondreReclamation

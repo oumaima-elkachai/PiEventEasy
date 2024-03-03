@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/note')]
 class NoteController extends AbstractController
@@ -23,10 +24,20 @@ class NoteController extends AbstractController
     }
 
     #[Route('/adminnote', name: 'app_note_adminnote', methods: ['GET'])]
-    public function admin(NoteRepository $noteRepository): Response
+    public function admin(NoteRepository $noteRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        // Récupérer toutes les notes
+        $allNotes = $noteRepository->findAll();
+
+        // Paginer les résultats
+        $pagination = $paginator->paginate(
+            $allNotes, // Requête Doctrine (pas le tableau, mais la requête SQL)
+            $request->query->getInt('page', 1), // Numéro de page
+            10 // Limite par page
+        );
+
         return $this->render('note/adminnote.html.twig', [
-            'notes' => $noteRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 
@@ -93,5 +104,30 @@ class NoteController extends AbstractController
         }
 
         return $this->redirectToRoute('app_note_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    /**
+     * @Route("/notes/stats", name="note_stats")
+     */
+    public function showStats(EntityManagerInterface $entityManager): Response
+    {
+        $connection = $entityManager->getConnection();
+
+        $sql = '
+            SELECT
+                COUNT(CASE WHEN description = "1" THEN 1 END) as countAngry,
+                COUNT(CASE WHEN description = "2" THEN 1 END) as countMad,
+                COUNT(CASE WHEN description = "3" THEN 1 END) as countNeutral,
+                COUNT(CASE WHEN description = "4" THEN 1 END) as countHappy,
+                COUNT(CASE WHEN description = "5" THEN 1 END) as countVeryHappy
+            FROM note
+        ';
+
+        $stats = $connection->executeQuery($sql)->fetchAssociative();
+
+        return $this->render('note/stats.html.twig', [
+            'stats' => $stats,
+        ]);
     }
 }

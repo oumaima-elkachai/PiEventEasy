@@ -15,8 +15,8 @@
             </tr>
         </thead>
         <tbody>
-        {% for note in notes %}
-            <tr>
+            {% for note in pagination %}
+                <tr>
                 <td>{{ note.id }}</td>
                 <td>{{ note.description }}</td>
                 <td>{{ note.date ? note.date|date('Y-m-d') : '' }}</td>
@@ -30,7 +30,10 @@
                 <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
+    
+
         </tbody>
     </table>
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

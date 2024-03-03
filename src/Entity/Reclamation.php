@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,6 +23,7 @@ class Reclamation
 
     #[ORM\ManyToOne(inversedBy: 'reclamation')]
     private ?User $user = null;
+
 
     public function __construct()
     {
