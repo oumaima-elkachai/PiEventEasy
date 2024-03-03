@@ -1,0 +1,60 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block title %}Calendar
+{% endblock %}
+
+{% block body %}
+	<main id="main" class="main">
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+
+		<div id="calendrier"></div>
+		<div>
+			<a href="{{ path('adminallocation') }}">Back to allocaion list</a>
+		</div>
+
+		<script  src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js" integrity="sha256-YicH/8aE660iEnJtgll3vT54dJApy3XkYmqNfGVFEzA=" crossorigin="anonymous"></script>
+
+		<style>
+			#calendrier {
+				width: 80%;
+				margin: auto;
+			}
+		</style>
+
+
+		<script>
+			// Attendre que la page soit chargée
+window.onload = () => { 
+// Sélectionner l'élément HTML contenant le calendrier
+let calendarElt = document.querySelector("#calendrier");
+
+// Créer une nouvelle instance du calendrier
+let calendar = new FullCalendar.Calendar(calendarElt, {
+// Afficher le calendrier en vue mensuelle par défaut
+initialView: 'dayGridMonth',
+// Définir la locale en anglais
+locale: 'ang',
+// Définir le fuseau horaire en Europe/Paris
+timeZone: 'Europe/Paris',
+// Définir la barre d'outils du calendrier
+headerToolbar: {
+start: 'prev,next today',
+center: 'title',
+end: 'dayGridMonth timeGridWeek'
+},
+// Récupérer les événements depuis la variable data
+events: {{ data | raw }}
+})
+
+// Afficher le calendrier
+calendar.render();
+
+// Afficher le calendrier dans la console pour vérification
+console.log(calendar);
+}
+		</script>
+
+	</main>
+	<!-- End #main -->
+
+{% endblock %}
