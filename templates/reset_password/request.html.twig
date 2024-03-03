@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+
+
+
+
+{% block body %}
+<style>
+   body {
+     background-image: url('{{ asset('/images/experties/img2.jpg') }}'); /* Assurez-vous que le chemin est correct */
+    background-size: cover; /* Ajuste la taille de l'image pour couvrir l'écran */
+    background-repeat: no-repeat; /* Évite la répétition de l'image */
+    background-position: center center; /* Centre l'image */
+    background-attachment: fixed; /* Optionnel: fixe l'image en arrière-plan lors du défilement */
+    }
+     .reset-form-container {
+            max-width: 400px;
+            margin: auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        /* Style pour les inputs et le bouton */
+        input[type="email"], button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px; /* Espacement entre les éléments du formulaire */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; /* Pour inclure padding dans la largeur */
+        }
+
+        button[type="submit"] {
+            background-color: orange;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button[type="submit"]:hover {
+            background-color: darkorange;
+        }
+
+        /* Ajout de styles pour les messages d'erreur */
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+</style>
+
+	{% for flash_error in app.flashes('reset_password_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+	<main>
+		<header class="login-gif site-header">
+			<div class="container">
+<h3 style="color: white;">Reset your password</h3>
+			</div>
+		</header>
+
+
+		<section class="explore-section section-padding" id="section_2">
+			<div class="container">
+				<div class="row">
+					<div class="container">
+						<div class="col-lg-6 ">
+							<div class="custom-form" id="signup-form">
+								{{ form_start(requestForm) }}
+								<div class="xx form-floating label-width">
+									{{ form_widget(requestForm.email,{'attr':{'class':'form-control'}}) }}
+									<label for="floatingInput">Email</label>
+<small style="color: white;">Enter your email address, and we will send you a link to reset your password.</small>
+								</div>
+								<div class="margin-inputs label-width">
+									<button type="submit" class="form-control">Send Email</button>
+								</div>
+								{{ form_end(requestForm) }}
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    </main>
+
+    {% endblock %}

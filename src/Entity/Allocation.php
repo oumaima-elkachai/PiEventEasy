@@ -100,12 +100,12 @@ class Allocation
         return $this;
     }
 
-    public function getCategory(): ?CategoryA
+    public function getCategory(): ?categoryA
     {
         return $this->category;
     }
 
-    public function setCategory(?CategoryA $category): static
+    public function setCategory(?categoryA $category): static
     {
         $this->category = $category;
 

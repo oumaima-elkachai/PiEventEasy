@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -17,33 +16,17 @@ class Event
     #[ORM\Column]
     private ?int $id = null;
 
-   
-#[ORM\Column(length: 255)]
-#[Assert\NotBlank(message: "Vous devez saisir le titre ")]
-#[Assert\Type(type: "string", message: "Le titre doit être une chaîne de caractères.")]
-#[Assert\Regex(
-    pattern: "/^[a-zA-Z\s]+$/",
-    message: "Le titre ne doit contenir que des lettres ."
-)]
-private ?string $Title = null;
+    #[ORM\Column(length: 255)]
+    private ?string $Title = null;
 
-#[ORM\Column(length: 255)]
-#[Assert\NotBlank(message: "Vous devez saisir l'email ")]
-#[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
-private ?string $Email = null;
+    #[ORM\Column(length: 255)]
+    private ?string $Email = null;
 
-#[ORM\Column(type: "integer")]
-#[Assert\NotBlank(message: "Vous devez saisir le numero telephone ")]
-#[Assert\Type(type: "integer", message: "Le numéro de téléphone doit être un nombre.")]
-private ?int $Phone = null;
+    #[ORM\Column]
+    private ?int $Phone = null;
 
-
-
-#[ORM\Column(type: Types::DATE_MUTABLE)]
-#[Assert\NotBlank(message: "Vous devez saisir la date ")]
-#[Assert\GreaterThan("today", message: "La date de l'événement doit être postérieure à aujourd'hui.")]
-private ?\DateTimeInterface $Date = null;
-
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $Date = null;
 
     #[ORM\ManyToOne]
     private ?CategoryE $categoryid = null;
@@ -51,11 +34,13 @@ private ?\DateTimeInterface $Date = null;
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: Allocation::class)]
     private Collection $allocation;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Lieu $lieu = null;
+    
 
     #[ORM\ManyToOne]
     private ?User $userid = null;
+
+    #[ORM\ManyToOne]
+    private ?Lieu $Lieu = null;
 
     public function __construct()
     {
@@ -157,18 +142,6 @@ private ?\DateTimeInterface $Date = null;
         return $this;
     }
 
-    public function getLieu(): ?Lieu
-    {
-        return $this->lieu;
-    }
-
-    public function setLieu(?Lieu $lieu): static
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
     public function getUserid(): ?User
     {
         return $this->userid;
@@ -177,6 +150,18 @@ private ?\DateTimeInterface $Date = null;
     public function setUserid(?User $userid): static
     {
         $this->userid = $userid;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->Lieu;
+    }
+
+    public function setLieu(?Lieu $Lieu): static
+    {
+        $this->Lieu = $Lieu;
 
         return $this;
     }

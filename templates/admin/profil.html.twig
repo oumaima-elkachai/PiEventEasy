@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+   
+   
+
+
+{% block body %}
+
+  		{{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+						  <div class="col-12">
+								  <label for="yourName" class="form-label">Your first Name</label>
+
+								  <div class="invalid-feedback">Please, enter your first name!</div>
+								  {{ form_widget(form.fname,{'attr':{'class':'form-control'}}) }} 
+                                 {{ form_errors(form.fname) }}
+
+						  </div>
+						  <div class="col-12">
+								  <label for="yourName" class="form-label">Your last Name</label>
+
+								  <div class="invalid-feedback">Please, enter your last name!</div>
+								{{ form_widget(form.lname,{'attr':{'class':'form-control'}}) }}  
+                                {{ form_errors(form.lname) }}
+
+						  </div>
+
+						   <div class="col-12">
+								  <label for="yourphonenumber" class="form-label">Your phone number </label>
+								   {{ form_widget(form.phonenumber,{'attr':{'class':'form-control', 'pattern': '\d{8}', 'title': 'Please enter an 8-digit phone number'}}) }}
+                                                              <div class="invalid-feedback">Please enter your 8-digit phone number!</div>
+                                 {{ form_errors(form.phonenumber, {'attr': {'class': 'text-danger'}}) }}
+
+							  </div>
+
+							  <div class="col-12">
+								  <label for="yourEmail" class="form-label">Your Email</label>
+								  {{ form_widget(form.email,{'attr':{'class':'form-control'}}) }} 
+								  <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                   {{ form_errors(form.email, {'attr': {'class': 'text-danger'}}) }}
+							  </div>
+
+
+
+							  <div class="col-12">
+								  <label for="yourPassword" class="form-label">Password</label>
+								 {{ form_widget(form.password.first,{'attr':{'class':'form-control'}}) }} 
+								  <div class="invalid-feedback">Please enter your password!</div>
+							  </div>
+
+						  <div class="col-12">
+							  <label for="yourPassword" class="form-label">Confirm Password</label>
+							 {{ form_widget(form.password.second,{'attr':{'class':'form-control'}}) }}
+							  <div class="invalid-feedback">Please confirm your password!</div>
+						  </div>
+
+							  <div class="col-12">
+								  <div class="form-check">
+									  <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required="">
+									  <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+									  <div class="invalid-feedback">You must agree before submitting.</div>
+								  </div>
+							  </div>
+							  <div class="col-12">
+								  <button class="btn btn-primary w-100" type="submit">Edit</button>
+							  </div>
+							  
+							  
+						  {{ form_end(form) }}
+{% endblock %}
