@@ -8,11 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AllocationRepository;
+use App\Repository\EventRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Knp\Component\Pager\PaginatorInterface;
 use MercurySeries\FlashyBundle\FlashyNotifier;
+use Symfony\Component\Security\Core\Security;
+
 
 class AllocationController extends AbstractController
 {
@@ -198,23 +201,69 @@ class AllocationController extends AbstractController
 
 
     #[Route('/decreasequantity/{id}', name: 'decreasequantity')]
-    public function Decreasequantity($id, AllocationRepository $repo, ManagerRegistry $managerRegistry, FlashyNotifier $flashy): Response
+    public function Decreasequantity($id, AllocationRepository $repo, ManagerRegistry $managerRegistry, FlashyNotifier $flashy, Security $security, EventRepository $eventRepository): Response
     {
         $x = $managerRegistry->getManager();
+        $currentUser = $security->getUser();
 
+        // Find the allocation by ID
         $allocation = $repo->find($id);
 
-        $qt = $allocation->getQuantity();
+        // Check if allocation exists
+        if (!$allocation) {
+            throw $this->createNotFoundException('Allocation not found');
+        }
 
-        if ($qt <= 0) {
-            $flashy->error('IT HAS BEEN RENTED!', 'http://your-awesome-link.com');
-        } else {
-            $allocation->setQuantity($qt - 1);
+        // Check if the allocation already has an associated event
+        if ($allocation->getEvent() !== null) {
+            $flashy->error('Already reserved!', 'http://your-awesome-link.com');
+            return $this->redirectToRoute('userallocation');
+        }
+
+        // Retrieve events associated with the current user
+        $userEvents = $eventRepository->findBy(['userid' => $currentUser]);
+
+        // Check if the allocation exists for any of the user's events
+        foreach ($userEvents as $event) {
+            foreach ($event->getAllocation() as $eventAllocation) {
+                if ($eventAllocation === $allocation) {
+                    // Check if the quantity is greater than zero
+                    if ($allocation->getQuantity() <= 0) {
+                        $flashy->error('No more available places!', 'http://your-awesome-link.com');
+                        return $this->redirectToRoute('userallocation');
+                    }
+                }
+            }
+        }
+
+        // If the user has events, assign the first event to the allocation
+        if (!empty($userEvents)) {
+            $event = $userEvents[0]; // Assuming the user has at least one event
+            $allocation->setEvent($event);
             $x->persist($allocation);
             $x->flush();
-            $flashy->success('RENTED SUCCESSFULLY!', 'http://your-awesome-link.com');
+            $flashy->success('Event assigned successfully!', 'http://your-awesome-link.com');
+        } else {
+            // Handle case where user doesn't have any events
+            $flashy->error('No events found for the current user!', 'http://your-awesome-link.com');
         }
 
         return $this->redirectToRoute('userallocation');
     }
-}
+    #[Route('/uptorent/{id}', name: 'uptorent')]
+    public function uptorent($id, AllocationRepository $allocationRepository, ManagerRegistry $managerRegistry, Request $req): Response
+    {
+        $x = $managerRegistry->getManager();
+        $allocation = $allocationRepository->find($id);
+
+       $allocation->setEvent(NULL);
+
+            $x->persist($allocation);
+            $x->flush();
+
+            return $this->redirectToRoute('adminallocation');
+        }
+
+       
+    }
+

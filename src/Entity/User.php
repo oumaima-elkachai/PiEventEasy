@@ -6,44 +6,79 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180, unique: true)]
+     /**
+ * @Assert\NotBlank(message="L'email ne peut pas être vide.")
+ * @Assert\Email(message="L'adresse email '{{ value }}' n'est pas une adresse email valide.")
+ * @Assert\Regex(
+ *     pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/",
+ *     message="Le format de l'adresse email '{{ value }}' n'est pas valide."
+ * )
+ */
     private ?string $email = null;
+    #[ORM\Column(length: 180)]
+
+    /**
+     * @Assert\NotBlank(message="Please enter your first name!")
+     * @Assert\Length(min=2, max=50, minMessage="Your first name must be at least {{ limit }} characters long", maxMessage="Your first name cannot be longer than {{ limit }} characters")
+     * @Assert\Regex(
+     *      pattern="/^[a-zA-ZÀ-ÿ\-']+$/",
+     *      message="Your first name must contain only letters, dashes, or apostrophes"
+     * )
+     */
+    private ?string $fname = null;
+
+    #[ORM\Column]
+    private ?bool $enabled = null;
+
+
+    #[ORM\Column(length: 180)]
+        /**
+     * @Assert\NotBlank(message="Please enter your last name!")
+     * @Assert\Length(min=2, max=50, minMessage="Your last name must be at least {{ limit }} characters long", maxMessage="Your last name cannot be longer than {{ limit }} characters")
+     * @Assert\Regex(
+     *      pattern="/^[a-zA-ZÀ-ÿ\-']+$/",
+     *      message="Your last name must contain only letters, dashes, or apostrophes"
+     * )
+     */
+    private ?string $lname = null;
+    #[ORM\Column(length: 180)]
+
+    /**
+     * @Assert\NotBlank
+     
+     * @Assert\Regex(pattern="/^\d{8}$/", message="Veuillez saisir un numéro de téléphone valide (8 chiffres)")
+     */
+    /**
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage = "Phone must be at least {{ limit }} characters long",
+     * max=8,
+     * maxMessage = "Phone must be at least {{ limit }} characters long"
+     * )
+     */
+    private ?int $phonenumber = null;
 
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $fname = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $lname = null;
-
+    /**
+     * @var string The hashed password
+     */
     #[ORM\Column]
-    private ?int $phonenumber = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reclamation::class)]
-    private Collection $reclamation;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Note::class)]
-    private Collection $note;
-
-    public function __construct()
-    {
-        $this->reclamation = new ArrayCollection();
-        $this->note = new ArrayCollection();
-    }
+    private ?string $password = null;
 
     public function getId(): ?int
     {
@@ -62,9 +97,34 @@ class User
         return $this;
     }
 
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): static
@@ -74,9 +134,12 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
-        return $this->password;
+        return $this->password ;
     }
 
     public function setPassword(string $password): static
@@ -86,6 +149,25 @@ class User
         return $this;
     }
 
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
     public function getFname(): ?string
     {
         return $this->fname;
@@ -109,7 +191,6 @@ class User
 
         return $this;
     }
-
     public function getPhonenumber(): ?int
     {
         return $this->phonenumber;
@@ -122,63 +203,16 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reclamation>
-     */
-    public function getReclamation(): Collection
+    public function isEnabled(): ?bool
     {
-        return $this->reclamation;
+        return $this->enabled;
     }
 
-    public function addReclamation(Reclamation $reclamation): static
+    public function setEnabled(bool $enabled): self
     {
-        if (!$this->reclamation->contains($reclamation)) {
-            $this->reclamation->add($reclamation);
-            $reclamation->setUser($this);
-        }
+        $this->enabled = $enabled;
 
         return $this;
     }
 
-    public function removeReclamation(Reclamation $reclamation): static
-    {
-        if ($this->reclamation->removeElement($reclamation)) {
-            // set the owning side to null (unless already changed)
-            if ($reclamation->getUser() === $this) {
-                $reclamation->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Note>
-     */
-    public function getNote(): Collection
-    {
-        return $this->note;
-    }
-
-    public function addNote(Note $note): static
-    {
-        if (!$this->note->contains($note)) {
-            $this->note->add($note);
-            $note->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNote(Note $note): static
-    {
-        if ($this->note->removeElement($note)) {
-            // set the owning side to null (unless already changed)
-            if ($note->getUser() === $this) {
-                $note->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }

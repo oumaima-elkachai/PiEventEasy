@@ -5,8 +5,6 @@ namespace App\Entity;
 use App\Repository\AllocationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 #[ORM\Entity(repositoryClass: AllocationRepository::class)]
 class Allocation
@@ -17,30 +15,18 @@ class Allocation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Ce champ ne doit pas être vide.")]
     private ?string $nom = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: "Ce champ ne doit pas être vide.")]
-    #[Assert\Regex(
-        pattern: "/^\d+$/",
-        message: "The value {{ value }} is not a valid number."
-    )]
     private ?float $prix = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\GreaterThanOrEqual('today', message: 'La date doit être aujourd\'hui ou dans le future')]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column]
-    #[Assert\Regex(
-        pattern: "/^\d+$/",
-        message: "La quantité ne peut contenir que des chiffres"
-    )]
     private ?int $quantity = null;
 
     #[ORM\Column(length: 255)]
-    
     private ?string $image = null;
 
     #[ORM\ManyToOne]
@@ -114,12 +100,12 @@ class Allocation
         return $this;
     }
 
-    public function getCategory(): ?CategoryA
+    public function getCategory(): ?categoryA
     {
         return $this->category;
     }
 
-    public function setCategory(?CategoryA $category): static
+    public function setCategory(?categoryA $category): static
     {
         $this->category = $category;
 
@@ -137,6 +123,4 @@ class Allocation
 
         return $this;
     }
-
-    
 }

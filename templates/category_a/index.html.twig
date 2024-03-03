@@ -1,10 +1,11 @@
 {% extends 'baseAdmin.html.twig' %}
 
-{% block title %}Tables / Category {% endblock %}
+{% block title %}Tables / Category
+{% endblock %}
 
 {% block body %}
 
-{% block sidebar %}
+{# {% block sidebar %}
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -240,59 +241,67 @@
     </ul>
 
   </aside><!-- End Sidebar-->
-{% endblock %}
+{% endblock %} #}
 
 
-  <main id="main" class="main">
+	<main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Data Tables</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+		<div class="pagetitle">
+			<h1>Data Tables</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">Home</a>
+					</li>
+					<li class="breadcrumb-item">Tables</li>
+					<li class="breadcrumb-item active">Data</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
+		<section class="section">
+			<div class="row">
+				<div class="col-lg-12">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Category</h5>
-             
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Nom</th>
-                     <th scope="col">edit</th>
-                      <th scope="col">delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {%for a in categorya %}
-                  <tr>
-                    <td>{{a.id}}</td>
-                    <td>{{a.nom}}</td>
-                     <td> <a class="btn btn-success" href="{{path('editcategory',{'id':a.id})}}" >EDIT</a></td>
-                    <td><a class="btn btn-danger" href="{{path('deletecategory',{'id':a.id})}}">DELETE</a></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Category</h5>
 
-            </div>
-          </div>
+							<!-- Table with stripped rows -->
+							<table class="table datatable">
+								<thead>
+									<tr>
+										<th scope="col">id</th>
+										<th scope="col">Nom</th>
+										<th scope="col">edit</th>
+										<th scope="col">delete</th>
+									</tr>
+								</thead>
+								<tbody>
+									{%for a in categorya %}
+										<tr>
+											<td>{{a.id}}</td>
+											<td>{{a.nom}}</td>
+											<td>
+												<a class="btn btn-success" href="{{path('editcategory',{'id':a.id})}}">EDIT</a>
+											</td>
+											<td>
+												<a class="btn btn-danger" href="{{path('deletecategory',{'id':a.id})}}">DELETE</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							<!-- End Table with stripped rows -->
 
-        </div>
-      </div>
-    </section>
+						</div>
+					</div>
 
-  </main><!-- End #main -->
+				</div>
+			</div>
+		</section>
+
+	</main>
+	<!-- End #main -->
 {% endblock %}

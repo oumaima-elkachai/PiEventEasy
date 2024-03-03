@@ -1,0 +1,54 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Form Event</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Forms</li>
+          <li class="breadcrumb-item active">Category</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">CATEGORY</h5>
+
+              <!-- Horizontal Form -->
+              {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+
+             
+                <div class="row mb-3">
+                  <label for="inputType" class="col-sm-2 col-form-label">Type</label>
+                  {{ form_widget(form.Type,{'attr':{'class':'form-control'}}) }}
+                   {# Afficher les erreurs du champ Title #}
+                       {{ form_errors(form.Type) }}
+                   
+                </div>
+                
+                
+                
+                
+                <div class="rahouma">
+                                       
+                 {{ form_widget(form.Submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                </div>
+                {{ form_end(form) }}
+           
+
+            </div>
+          </div>
+
+         
+
+        
+    </section>
+
+  </main>
+  {% endblock %}

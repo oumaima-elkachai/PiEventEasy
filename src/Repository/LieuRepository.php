@@ -20,6 +20,18 @@ class LieuRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Lieu::class);
     }
+    
+
+    public function search($keyword)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.nom LIKE :keyword')
+            ->orWhere('p.category LIKE :keyword')
+            ->orWhere('p.region LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Lieu[] Returns an array of Lieu objects
