@@ -32,6 +32,19 @@ class LieuClientController extends AbstractController
 
         ]);
     }
+    //map
+    #[Route('/map', name: 'map_lieu')]
+    public function add(Request $request, LieuRepository $lieuRepository): Response
+{
+    $lieux = $lieuRepository->findAll(); // Récupérer tous les lieux disponibles depuis le repository
+
+    $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
+
+    return $this->render('Client/lieu_client/map.html.twig', [
+        'lieux' => $lieux, // Transmettre les lieux disponibles au modèle Twig
+        'mapbox_access_token' => $mapboxAccessToken,
+    ]);
+}
    
    
    

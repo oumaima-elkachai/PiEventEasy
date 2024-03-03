@@ -36,7 +36,12 @@ class Lieu
      */
     private ?float $prix = null;
 
-    
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '4')]
+    private ?string $latitude = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '4')]
+    private ?string $longitude = null;
+
 
     #[ORM\Column(length: 255)]
 
@@ -79,7 +84,7 @@ class Lieu
     /**
      * @return Collection|BookingL[]
      */
-    
+
     public function getBookings(): Collection
     {
         return $this->bookings;
@@ -209,6 +214,29 @@ class Lieu
 
         return $this;
     } 
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(string $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(string $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
 
     
 }

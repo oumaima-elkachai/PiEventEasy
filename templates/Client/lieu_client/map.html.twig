@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div style=" margin-top:50px ;margin-left:250px;">
+<a href="{{ path('app_lieu_client') }}" ><button type="button" class="btn btn-sm btn-outline-danger">Retour au liste</button></a>
+</div>
+<center>
+    <h1 class="mb-3 text-danger">See Places in Maps </h1>
+    <br>
+    <h5>Veuillez cliquer sur le marqueur pour voir les détails</h5>
+    
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet'/>
+    <div id='map' style='width: 75%; height: 450px; margin:20px 200px;'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZmplcmJpIiwiYSI6ImNrdWp6bXJhdTE4MGwyd215bzhpb3c0OGYifQ.jW0ZovMg20DoAaiOtGkPhg';
+        
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [0, 0],
+            zoom: 5
+        });
+
+
+    </script>
+</center>    
+{% endblock %}
