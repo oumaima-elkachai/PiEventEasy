@@ -34,7 +34,7 @@ class AllocationController extends AbstractController
         $pagination = $paginator->paginate(
             $allocation, // Users query
             $request->query->getInt('page', 1), // Current page
-            5// Items per page
+            5 // Items per page
         );
 
 
@@ -256,14 +256,11 @@ class AllocationController extends AbstractController
         $x = $managerRegistry->getManager();
         $allocation = $allocationRepository->find($id);
 
-       $allocation->setEvent(NULL);
+        $allocation->setEvent(NULL);
 
-            $x->persist($allocation);
-            $x->flush();
+        $x->persist($allocation);
+        $x->flush();
 
-            return $this->redirectToRoute('adminallocation');
-        }
-
-       
+        return $this->redirectToRoute('adminallocation');
     }
-
+}

@@ -321,55 +321,7 @@
 										class="row">
 
 									<!-- menu-item-list - start -->
-									<div class="col-lg-10">
-										<div class="menu-item-list ul-li clearfix">
-											<ul>
-												<li class="menu-item-has-children">
-													<a href="#!">home</a>
-													<ul class="sub-menu">
-														
-														
-													</ul>
-												</li>
-												<li class="menu-item-has-children">
-													<a href="#!">about</a>
-													
-												</li>
-												<li class="menu-item-has-children active">
-													<a href="#!">events</a>
-													<ul class="sub-menu">
-                                                        <li class="menu-item-has-children">
-															<a href="event-1.html">Event Create</a>
-															
-														</li>
-														<li class="menu-item-has-children">
-															<a href="event-1.html">Event Places</a>
-															
-														</li>
-														<li class="menu-item-has-children">
-															<a class="active" href="event-2.html">Event Rental</a>
-															<ul class="sub-menu">
-															</ul>
-														</li>
-														<li><a href="event-details.html">event details</a></li>
-														
-													</ul>
-												</li>
-												
-												
-												<li>
-													<a href="speaker.html">Partners</a>
-												</li>
-												<li class="menu-item-has-children">
-													<a href="#!">contact</a>
-													<ul class="sub-menu">
-														<li><a href="{{ path('app_reclamation_index')}}">Reclamations</a></li>
-														<li><a href="{{ path('app_note_index')}}">Notes</a></li>
-													</ul>
-												</li>
-											</ul>
-										</div>
-									</div>
+									
 									<!-- menu-item-list - end -->
 										<!-- menu-item-list - start -->
 										<div class="col-lg-10">
@@ -413,12 +365,10 @@
 													<li class="menu-item-has-children">
 														<a href="#!">contact</a>
 														<ul class="sub-menu">
-															<li>
-																<a href="contact.html">Reclamations</a>
-															</li>
-															<li>
-																<a href="404-error.html">Notes</a>
-															</li>
+															<ul class="sub-menu">
+														<li><a href="{{ path('app_reclamation_index')}}">Reclamations</a></li>
+														<li><a href="{{ path('app_note_index')}}">Notes</a></li>
+													</ul>
 														</ul>
 													</li>
 												</ul>
