@@ -1,19 +1,32 @@
-{# templates/booking_l/confirmation.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Confirmation de réservation{% endblock %}
-
 {% block body %}
-<section>
-    <div class="container" >
-        <div class="row" >
-            <div class="col">
-                <h1>Votre réservation a été effectuée avec succès !</h1>
-                <p>Merci de votre réservation.</p>
-                <p>Vous pouvez revenir à <a href="{{ path('app_lieu_client') }}">la page d'accueil</a>.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <div id="calendrier" style="width: 80%; margin: auto;"></div>
+    
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendrier');
+        
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            locale: 'tn',
+            timeZone: 'Africa/Tunis',
+            headerToolbar: {
+                start: 'prev,next today',
+                center: 'title',
+                end: 'dayGridMonth,timeGridWeek,listWeek,timeGridDay'
+                
+            },
+            events: {{ data|raw }},
+            editable: true,
+            eventResizableFromStart: true,
+            
+        });
+        
+        calendar.render();
+    });
+</script>
 {% endblock %}

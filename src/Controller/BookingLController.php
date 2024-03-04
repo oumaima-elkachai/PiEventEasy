@@ -6,6 +6,7 @@ use App\Entity\BookingL;
 use App\Entity\Lieu;
 use App\Form\BookingType;
 use App\Repository\BookingLRepository;
+use App\Repository\LieuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -85,5 +86,27 @@ class BookingLController extends AbstractController
         return $this->render('booking_l/booking_details.html.twig', [
             'book' => $book
         ]);
+    }
+    #[Route('/cal', name: 'app_cal', methods: ['GET'])]
+    public function cal(BookingLRepository $appointmentRepository)
+    {
+        $events = $appointmentRepository->findAll();
+
+        $rdvs = [];
+
+        foreach ($events as $event) {
+            $rdvs[] = [
+                'id' => $event->getId(),
+                'start' => $event->getDateD()->format('Y-m-d\TH:i:sO'),
+                'end' => $event->getDateF()->format('Y-m-d\TH:i:sO'),
+                'title' => $event->getLieub()->getNom(),
+            ];
+        }
+
+     
+
+        $data = json_encode($rdvs);
+
+        return $this->render('booking_l/confirmation.html.twig', compact('data'));
     }
 }
