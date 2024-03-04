@@ -47,16 +47,22 @@ class ReponseController extends AbstractController
             $entityManager->flush();
 
             // Envoi de l'e-mail
-            $email = (new Email())
-                ->from('eventeasy@gmail.com')
-                ->to($reclamation->getUser()->getEmail()) // Directement depuis l'instance de Reclamation
-                ->subject('Réponse à votre réclamation')
-                ->text($reponse->getDescription());
-
-            $mailer->send($email);
-
-            // Rediriger vers une page ou afficher un message de confirmation
-            return $this->redirectToRoute('nom_de_la_route_pour_confirmation');
+            if ($reclamation->getUser() !== null) {
+                // Envoi de l'e-mail avec Swift Mailer
+                $email = (new Email())
+                    ->from('eventeasy@gmail.com')
+                    ->to($reclamation->getUser()->getEmail())
+                    ->subject('Réponse à votre réclamation')
+                    ->text($reponse->getDescription());
+            
+                $mailer->send($email);
+            
+                return new Response('Réclamation créée avec succès et e-mail envoyé à : ' . $reclamation->getUser()->getEmail());
+            } else {
+                // Gérez le cas où l'utilisateur associé à la réclamation est null
+                // Vous pouvez choisir de ne pas envoyer d'e-mail ou de prendre d'autres mesures.
+                return new Response('Réclamation créée avec succès, mais l\'utilisateur associé est null.');
+            }
         }
 
         return $this->render('reponse/repondre_reclamation.html.twig', [
