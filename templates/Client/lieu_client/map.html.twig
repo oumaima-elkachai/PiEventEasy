@@ -1,28 +1,57 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-<div style=" margin-top:50px ;margin-left:250px;">
-<a href="{{ path('app_lieu_client') }}" ><button type="button" class="btn btn-sm btn-outline-danger">Retour au liste</button></a>
+<div class="overlay-black">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                <!-- breadcrumb-title - start -->
+                <div class="breadcrumb-title text-center mb-50">
+                    <span class="sub-title"></span>
+                    <h2 class="big-title"><strong></strong></h2>
+                </div>
+                <!-- breadcrumb-title - end -->
+
+                <!-- breadcrumb-list - start -->
+                <div class="breadcrumb-list">
+                    <ul>
+                        
+                    </ul>
+                </div>
+                <!-- breadcrumb-list - end -->
+
+            </div>
+        </div>
+    </div>
 </div>
-<center>
-    <h1 class="mb-3 text-danger">See Places in Maps </h1>
-    <br>
-    <h5>Veuillez cliquer sur le marqueur pour voir les détails</h5>
-    
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet'/>
-    <div id='map' style='width: 75%; height: 450px; margin:20px 200px;'></div>
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZmplcmJpIiwiYSI6ImNrdWp6bXJhdTE4MGwyd215bzhpb3c0OGYifQ.jW0ZovMg20DoAaiOtGkPhg';
-        
+<div style="margin-top: 50px; text-align: center;">
+    <a href= "{{ path('app_lieu_client') }}"><button type="button" class="custom-btn">Retour au liste </button></a>
+</div>
 
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/light-v10',
-            center: [0, 0],
-            zoom: 5
-        });
+<div id='map' style='width: 75%; height: 450px; margin: 20px auto;'></div>
 
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet'/>
 
-    </script>
-</center>    
+<script>
+    mapboxgl.accessToken = '{{ mapbox_access_token }}';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        center: [{{ lieux[0].latitude }}, {{ lieux[0].longitude }}], // Utilisez le premier lieu pour centrer la carte (vous pouvez ajuster cela selon vos besoins)
+        zoom: 5
+    });
+
+    // Ajouter des marqueurs pour tous les lieux disponibles
+    {% for lieu in lieux %}
+    new mapboxgl.Marker({
+        color: 'red'
+    })
+    .setLngLat([{{ lieu.longitude }}, {{ lieu.latitude }}])
+    .setPopup(new mapboxgl.Popup({ offset: 25 })
+        .setHTML('<ul><li><p>Lieu: {{ lieu.nom }}</p></li><li><p>category: {{ lieu.category.nom }}</p></li><li><p>Start Date:{{ lieu.DateD |date("Y-m-d") }}</ </p></li><li><p>End Date:{{ lieu.DateF|date("Y-m-d") }}</ </p></li></ul>'))
+    .addTo(map);
+    {% endfor %}
+</script>
 {% endblock %}

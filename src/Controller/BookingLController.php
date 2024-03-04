@@ -61,7 +61,7 @@ class BookingLController extends AbstractController
             
 
             // Rediriger l'utilisateur vers une page de confirmation
-            return $this->redirectToRoute('booking_confirmation');
+            return $this->redirectToRoute('app_cal');
         }
 
         return $this->render('booking_l/bookingL.html.twig', [
@@ -72,21 +72,22 @@ class BookingLController extends AbstractController
         ]);
     }
 
-    #[Route('/booking_confirmation', name: 'booking_confirmation')]
-    public function confirmation(): Response
-    {
-        // Afficher un message de confirmation de la réservation
-        return $this->render('booking_l/confirmation.html.twig');
-    }
+    // #[Route('/booking_confirmation', name: 'booking_confirmation')]
+    // public function confirmation(): Response
+    // {
+    //     // Afficher un message de confirmation de la réservation
+    //     return $this->render('booking_l/confirmation.html.twig');
+    // }
 
-    #[Route('/adminb', name: 'admin_booking')]
-    public function adminbooking(BookingLRepository $bookRepository): Response
-    {
-        $book = $bookRepository->findAll();
-        return $this->render('booking_l/booking_details.html.twig', [
-            'book' => $book
-        ]);
-    }
+    // #[Route('/adminb', name: 'admin_booking')]
+    // public function adminbooking(BookingLRepository $bookRepository): Response
+    // {
+    //     $book = $bookRepository->findAll();
+    //     return $this->render('booking_l/booking_details.html.twig', [
+    //         'book' => $book
+    //     ]);
+    // }
+    //afficher calendrier au user avec ses reservations
     #[Route('/cal', name: 'app_cal', methods: ['GET'])]
     public function cal(BookingLRepository $appointmentRepository)
     {

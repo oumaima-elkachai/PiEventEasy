@@ -53,14 +53,19 @@ class LieuAdminController extends AbstractController
 
             return $this->redirectToRoute('showdblieu');
         }
+       $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
+
         return $this->renderForm('Admin/lieu_admin/lieuform.html.twig', [
-            'f' => $form
+            'f' => $form,
+            'mapbox_access_token' => $mapboxAccessToken,
+            
         ]);
     }
     
     #[Route('/editl/{id}', name: 'editlieu')]
     public function editroom($id,LieuRepository $lieuRepository, ManagerRegistry $managerRegistry,Request $req): Response
     {
+
         //var_dump($id) . die();
         $x = $managerRegistry->getManager();
         $dataid = $lieuRepository->find($id);
@@ -90,8 +95,11 @@ class LieuAdminController extends AbstractController
             $x->flush();
             return $this->redirectToRoute('showdblieu');
         }
-        return $this->renderForm('Admin/lieu_admin/editlieu.html.twig', [
-            'x' => $form
+        $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
+
+        return $this->renderForm('Admin/lieu_admin/lieuform.html.twig', [
+            'f' => $form,
+            'mapbox_access_token' => $mapboxAccessToken,
         ]);
     }  
 
@@ -104,5 +112,38 @@ class LieuAdminController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('showdblieu');
     }
+    
+//// ajout d'un lieu avec map 
+ 
+// #[Route('/lieu/add', name:'lieu_add')]
+
+// public function addl(Request $request): Response
+// {
+//     $doctor = new Lieu();
+
+//     $form = $this->createForm(AddlType::class, $doctor);
+
+//     $form->handleRequest($request);
+
+//     if ($form->isSubmitted() && $form->isValid()) {
+//         $entityManager = $this->getDoctrine()->getManager();
+//         $entityManager->persist($doctor);
+//         $entityManager->flush();
+
+//         return $this->redirectToRoute('showdblieu');
+//     }
+
+//     $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
+
+//     return $this->render('Admin/lieu_admin/lieuform.html.twig', [
+//         'f' => $form->createView(),
+//         'mapbox_access_token' => $mapboxAccessToken,
+//     ]);
+// }
+
+
+
+
+
 
 }
