@@ -21,9 +21,10 @@ class Partenaire
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column]
-    private ?int $tel = null;
-
+    #[ORM\Column(type: "integer")]
+#[Assert\NotBlank(message: "Le numéro de téléphone est requis")]
+#[Assert\Type(type: "integer", message: "Le numéro de téléphone doit être un nombre.")]
+private ?int $tel = null;
     #[ORM\Column]
     private ?float $don = null;
  

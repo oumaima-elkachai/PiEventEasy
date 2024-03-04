@@ -21,6 +21,25 @@ class ContratRepository extends ServiceEntityRepository
         parent::__construct($registry, Contrat::class);
     }
 
+    public function searchByName(string $name)
+{
+    return $this->createQueryBuilder('s')
+        ->andWhere('s.Partenaire.nom LIKE :name')
+        ->setParameter('name', '%'.$name.'%')
+        ->getQuery()
+        ->getResult();
+}
+
+public function countByPrix()
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('SUBSTRING(p.datedebut, 1, 10) as datedebut', 'COUNT(p) as count')
+            ->groupBy('datedebut')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Contrat[] Returns an array of Contrat objects
 //     */
