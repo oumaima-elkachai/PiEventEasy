@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Ajoutez vos styles CSS ici */
+        #t {
+            width: 80%; /* Réduire la largeur du tableau */
+            margin: 20px auto; /* Centrer le tableau */
+            border-collapse: collapse;
+        }
+        #t th, #t td {
+            padding: 8px; /* Réduire le rembourrage */
+            text-align: center;
+        }
+        #t th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            margin-right: 5px;
+            border-radius: 20px;
+            padding: 6px 12px; /* Réduire la taille des boutons */
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20px; /* Réduire l'espacement entre le titre et la barre de recherche */
+            font-size: 28px; /* Réduire la taille du titre */
+            margin-top: 100px; /* Augmenter la marge supérieure du titre */
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px; /* Réduire l'espacement entre la barre de recherche et le tableau */
+        }
+        .search-container .form-control {
+            width: 50%; /* Réduire la largeur du champ de recherche */
+            border-radius: 20px;
+            border-color: #007bff;
+            color: #333;
+            display: inline-block; /* Afficher le champ de recherche en ligne */
+        }
+        .search-container .form-control::placeholder {
+            color: #999;
+        }
+        .search-container .btn {
+            border-radius: 20px;
+            padding: 6px 12px; /* Réduire la taille des boutons */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            display: inline-block; /* Afficher le bouton en ligne */
+        }
+        .search-container .btn:hover {
+            background-color: #0056b3;
+        }
+        .header {
+            padding-top: 50px; /* Réduire la taille du header */
+        }
+        .footer {
+            padding-bottom: 50px; /* Réduire la taille du footer */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 header">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="title">Your LIST EVENT</h1>
+                <div class="search-container">
+                    <input type="text" class="form-control" placeholder="Search..." id="myInput">
+                    <button class="btn btn-primary" type="button">
+                        <i class="material-icons">search</i> Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center" id="t">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                        <th>Confirmation SMS</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    {% for event in evenement %}
+                        <tr>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.email }}</td>
+                            <td>{{ event.phone }}</td>
+                            <td>{{ event.date|date('Y-m-d') }}</td>
+                            <td>{{ event.categoryid.type }}</td>
+                            <td>
+                                <a href="{{ path('edit', {'id': event.id}) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ path('delete', {'id': event.id}) }}" class="btn btn-danger">Delete</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('sendSms', {'EventId': event.id}) }}" class="btn btn-success">Confirmer avec SMS</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+{% endblock %}

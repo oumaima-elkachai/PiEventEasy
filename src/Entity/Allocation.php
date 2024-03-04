@@ -30,7 +30,7 @@ class Allocation
     private ?string $image = null;
 
     #[ORM\ManyToOne]
-    private ?categoryA $category = null;
+    private ?CategoryA $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'allocation')]
     private ?Event $event = null;
