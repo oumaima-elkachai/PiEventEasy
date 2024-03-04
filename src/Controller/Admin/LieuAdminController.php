@@ -18,7 +18,7 @@ class LieuAdminController extends AbstractController
     public function showdblieu(LieuRepository $lieuRepository): Response
     {
         $l = $lieuRepository->findAll();
-        return $this->render('Admin/lieu_admin/index.html.twig', [
+        return $this->render('admin/lieu_admin/index.html.twig', [
             'l' => $l
         ]);
     }
@@ -55,7 +55,7 @@ class LieuAdminController extends AbstractController
         }
        $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
 
-        return $this->renderForm('Admin/lieu_admin/lieuform.html.twig', [
+        return $this->renderForm('admin/lieu_admin/lieuform.html.twig', [
             'f' => $form,
             'mapbox_access_token' => $mapboxAccessToken,
             
@@ -97,7 +97,7 @@ class LieuAdminController extends AbstractController
         }
         $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
 
-        return $this->renderForm('Admin/lieu_admin/lieuform.html.twig', [
+        return $this->renderForm('admin/lieu_admin/lieuform.html.twig', [
             'f' => $form,
             'mapbox_access_token' => $mapboxAccessToken,
         ]);
@@ -135,7 +135,7 @@ class LieuAdminController extends AbstractController
 
 //     $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
 
-//     return $this->render('Admin/lieu_admin/lieuform.html.twig', [
+//     return $this->render('admin/lieu_admin/lieuform.html.twig', [
 //         'f' => $form->createView(),
 //         'mapbox_access_token' => $mapboxAccessToken,
 //     ]);

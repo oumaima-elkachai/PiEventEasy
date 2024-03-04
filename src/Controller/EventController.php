@@ -12,6 +12,7 @@ use App\Entity\Event;
 use App\Entity\User;
 use App\Form\EventType;
 use App\Entity\CategoryE;
+use App\Repository\LieuRepository;
 use App\Repository\UserRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -30,7 +31,7 @@ class EventController extends AbstractController
     // }
 
     #[Route('/add', name: 'add')]
-    public function add(Security $security, ManagerRegistry $managerRegistry, Request $request, UserRepository $userRepository): Response
+    public function add(Security $security, ManagerRegistry $managerRegistry, Request $request, UserRepository $userRepository, LieuRepository $LieuRepository): Response
     {
         // Retrieve user from security
         $user = $security->getUser();
@@ -49,6 +50,8 @@ class EventController extends AbstractController
         // Create new Event
         $event = new Event();
         $event->setUserid($user);
+        $lieu = $LieuRepository->find("1");
+        $event->setLieu($lieu);
         $event->setEmail($user->getEmail());
         $event->setPhone($user->getPhonenumber());
 

@@ -23,6 +23,13 @@ class Note
     #[ORM\ManyToOne(inversedBy: 'note')]
     private ?User $user = null;
 
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,7 +52,7 @@ class Note
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 

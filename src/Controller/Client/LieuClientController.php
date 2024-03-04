@@ -29,7 +29,7 @@ class LieuClientController extends AbstractController
             $request->query->getInt('page', 1), // Current page number, default to 1
             3// Items per page
         );
-        return $this->render('Client/lieu_client/index.html.twig', [
+        return $this->render('client/lieu_client/index.html.twig', [
             'l' => $lieu,
             'pagination' => $pagination,
 
@@ -44,7 +44,7 @@ public function add(Request $request, LieuRepository $lieuRepository): Response
 
     $mapboxAccessToken = 'pk.eyJ1Ijoib3VtYWltYTEyIiwiYSI6ImNsdGJ2OXN6ajFuNHAyaW03M212eTN2NzkifQ.l6QJ1G10Yg6LM8Pmwp6SdQ';
 
-    return $this->render('Client/lieu_client/map.html.twig', [
+    return $this->render('client/lieu_client/map.html.twig', [
         'lieux' => $lieux, // Transmettre les lieux disponibles au modèle Twig
         'mapbox_access_token' => $mapboxAccessToken,
     ]);

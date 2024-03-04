@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+
 
 class BookingLController extends AbstractController
 {
@@ -24,10 +26,10 @@ class BookingLController extends AbstractController
         $this->flashy = $flashy;
     }
     #[Route('/booking/{lieuId}', name: 'booking')]
-    public function booking(Request $request, EntityManagerInterface $entityManager,BookingLRepository $bookingRepository, $lieuId,FlashyNotifier $flashy): Response
+    public function booking(Request $request, EntityManagerInterface $entityManager,BookingLRepository $bookingRepository, $lieuId): Response
     {
         $lieu = $entityManager->getRepository(Lieu::class)->find($lieuId);
-
+       
         if (!$lieu) {
             throw $this->createNotFoundException('Le lieu avec l\'ID '.$lieuId.' n\'existe pas.');
         }
@@ -79,14 +81,14 @@ class BookingLController extends AbstractController
     //     return $this->render('booking_l/confirmation.html.twig');
     // }
 
-    // #[Route('/adminb', name: 'admin_booking')]
-    // public function adminbooking(BookingLRepository $bookRepository): Response
-    // {
-    //     $book = $bookRepository->findAll();
-    //     return $this->render('booking_l/booking_details.html.twig', [
-    //         'book' => $book
-    //     ]);
-    // }
+    #[Route('/adminb', name: 'admin_booking')]
+    public function adminbooking(BookingLRepository $bookRepository): Response
+    {
+        $book = $bookRepository->findAll();
+        return $this->render('booking_l/booking_details.html.twig', [
+            'book' => $book
+        ]);
+    }
     //afficher calendrier au user avec ses reservations
     #[Route('/cal', name: 'app_cal', methods: ['GET'])]
     public function cal(BookingLRepository $appointmentRepository)

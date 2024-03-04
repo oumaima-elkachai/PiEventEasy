@@ -16,14 +16,14 @@ class CategorylAdminController extends AbstractController
     #[Route('/showcatl', name: 'showcategoryl')]
     public function showcat(): Response
     {
-        return $this->render('Admin/categoryl_admin/index.html.twig');
+        return $this->render('admin/categoryl_admin/index.html.twig');
     }
     #[Route('/showdbcat', name: 'showdbcategory')] //affichage
     public function showdbauthor(CategoryLRepository $catRepository): Response
     {
 
         $cat=$catRepository->findAll();
-        return $this->render('Admin/categoryl_admin/showdbcategory.html.twig', [
+        return $this->render('admin/categoryl_admin/showdbcategory.html.twig', [
             'cat'=>$cat
 
         ]);
@@ -41,7 +41,7 @@ class CategorylAdminController extends AbstractController
 
             return $this->redirectToRoute('showdbcategory');
         }
-        return $this->renderForm('Admin/categoryl_admin/addCategory.html.twig', [
+        return $this->renderForm('admin/categoryl_admin/addCategory.html.twig', [
             'f' => $form
         ]);
     }

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block title %}EvenatEasy{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .overlay-light-orange {
+            background-color: #FFDAB9; 
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <section id="main-carousel2" class="main-carousel2 clearfix">
+        <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
+            <div class="overlay-light-orange">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h1 class="card-title">Liste des Réclamations</h1>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for reclamation in reclamations %}
+                                                <tr>
+                                                    <td>{{ reclamation.id }}</td>
+                                                    <td>{{ reclamation.description }}</td>
+                                                    <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                                                    <td>
+                                                        <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="btn btn-info btn-sm">
+                                                            <i class="bi bi-eye"></i> Show
+                                                        </a>
+                                                        <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}" class="btn btn-warning btn-sm">
+                                                            <i class="bi bi-pencil"></i> Edit
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="4">No records found</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <a href="{{ path('app_reclamation_new') }}">Add new complaint</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

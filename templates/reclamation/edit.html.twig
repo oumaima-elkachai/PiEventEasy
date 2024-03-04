@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+        <section id="main-carousel2" class="main-carousel2 clearfix">
+            <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
+                <div class="overlay-light-orange">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1>Edit Reclamation</h1>
+    
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h1 class="card-title">Modifier Reclamation</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                {{ include('reclamation/_form.html.twig')}}
+                                            </div>
+                                            <div class="card-footer">
+                                                <a href="{{ path('app_reclamation_index') }}" class="btn btn-secondary">Back to List</a>
+                                            </div>
+                                        </div>
+                                        <div class="card mt-3">
+                                            <div class="card-body">
+                                                {{ include('reclamation/_delete_form.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    

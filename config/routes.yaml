@@ -1,9 +1,12 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-booking_show:
-    path: /booking/{id}
-    controller: App\Controller\BookingLController::showb
-    requirements:
-    methods: GET
-    
+reclamation_index:
+  path: /reclamations/index
+  controller: App\Controller\ReclamationController::index
+note_index:
+  path: /notes/index
+  controller: App\Controller\NoteController::index
+repondre_reclamation:
+  path: /repondre-reclamation/{reclamationId}
+  controller: App\Controller\ReponseController::repondreReclamation

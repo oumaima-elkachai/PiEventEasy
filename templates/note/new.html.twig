@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title %}EvenatEasy{% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    {% endblock %}
+    
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% endblock %}
+    
+{% block body %}
+    <section id="main-carousel2" class="main-carousel2 clearfix">
+        <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
+            <div class="overlay-black">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="reg-form">
+                                <div class="from-title">
+                                    <h2 class="title-text"><strong>SUBMIT</strong> <strong>YOUR</strong> <strong>COMPLAINT</strong> </h2>
+                                </div>
+                                {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+                                <div class="form-wrapper mb-30">
+                                    <div class="form-item">
+                                        <label for="Event Title" class="form-label">Give us a note</label>
+                                        {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+                                
+                                        {{ form_errors(form.description) }}
+                                    </div>
+                                    <div class="form-item">
+                                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary', 'onclick': 'submitForm()'}}) }}
+                                    </div>
+                                </div>
+                                {{ form_end(form) }}
+
+                                {# Display emojis based on the note value #}
+                                {% set noteValue = form.description.vars.value %}
+                                {% for i in 1..5 %}
+                                    {% if i <= noteValue %}
+                                        😃 {# or any other positive emoji #}
+                                    {% else %}
+                                        😐 {# or any other neutral emoji #}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+
+    <script>
+        function submitForm() {
+            Swal.fire({
+                title: 'Merci!',
+                text: 'Your complaint has been submitted successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                timer: 5000
+                
+            });
+        }
+    </script>
+{% endblock %}
