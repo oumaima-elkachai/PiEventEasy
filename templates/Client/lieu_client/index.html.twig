@@ -101,56 +101,62 @@
 				<div class="tab-content">
 
 					<div id="grid-style" class="tab-pane fade in active show">
-						<div class="row justify-content-center">
+						<div class="row justify-content-center ">
+							{% for lieu in pagination %}
+							<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+							<div class="event-grid-item">
+								<!-- event-image - start -->
+								<div class="event-image">
+									{% if lieu.image is defined %}
+									<img src="{{ asset('uploads/' ~ lieu.image) }}" alt="Image du lieu" style="width: 100%; height: 200px; object-fit: cover;">
+									{% else %}
+									<div class="image-placeholder" style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">Pas d'image disponible</div>
+									{% endif %}
+								</div>
+								<!-- event-image - end -->
 
-							
-
-							<!-- event-grid-item - start -->
-							<div class="album py-5 bg-light">
-								<div class="container">
-							
-									<div class="album py-5 bg-light">
-										<div class="post-container">
-											<div class="row">
-												{% for lieu in pagination %}
-												<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="margin-left: 30px;">
-													<div class="lieus card mb-4 shadow-sm" style="width: 300px;">
-														{% if lieu.image is defined %}
-														<img class="card-img-top" src="{{ asset('uploads/' ~ lieu.image) }}" alt="Image du lieu" style="width: 100%; height: 200px; object-fit: cover;">
-														{% else %}
-														<div class="image-placeholder" style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">Pas d'image disponible</div>
-														{% endif %}
-														<div class="card-body">
-															<h5 class="card-title yellow-color">{{ lieu.nom }} ,{{ lieu.region }}</h5>
-															<p class="card-text">Capacity: {{ lieu.capacity}}</p>
-															<p class="card-text">Prix: {{ lieu.prix }}</p>
-															<a href="{{path ('booking',{'lieuId': lieu.id})}}"  class="btn btn-outline-warning">Réserver</a>
-														</div>
-													</div>
-												</div>
-												{% endfor %}
-											</div>
-										</div>
+								<!-- event-content - start -->
+								<div class="event-content">
+									<div class="event-title mb-30">
+										
+											<h3 class="title">{{ lieu.nom }}</h3>
+										
+										<span class="ticket-price yellow-color">{{ lieu.region }}</span>
 									</div>
+									<div class="event-post-meta ul-li-block mb-30">
+										<ul>
+											<li>
+												<span class="icon">
+													<i class="far fa-clock"></i>
+												</span>
+												Capacity: {{ lieu.capacity}}
+											</li>
+											<li>
+												<span class="icon">
+													<i class="fas fa-map-marker-alt"></i>
+												</span>
+												Prix: {{ lieu.prix }}
+											</li>
+										</ul>
+									</div>
+										<a href="{{path ('booking',{'lieuId': lieu.id})}}"  class="tickets-details-btn">Réserver</a>
 								</div>
-								<center>
-								<div class="pagination ul-li clearfix">
-									<ul>
-										{{ knp_pagination_render(pagination) }}
-									</ul>
-								</div>
-							</center>
+								<!-- event-content - end -->
 							</div>
-							<!-- event-grid-item - end -->
+						</div>
+							{% endfor %}
 
-							
-
-							
-
-
-							
+						
 
 						</div>
+						<center>
+							<div class="pagination ul-li clearfix">
+								<ul>
+									{{ knp_pagination_render(pagination) }}
+								</ul>
+							</div>
+						</center>
+						
 					</div>
 				</div>
 

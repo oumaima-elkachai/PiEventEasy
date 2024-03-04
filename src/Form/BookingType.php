@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\BookingL;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -58,6 +60,10 @@ class BookingType extends AbstractType
                     'class' => 'form-control datetimepicker-input',
                 ],
                
+            ])
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'booking',
             ])
             
             ->add('save',SubmitType::class)

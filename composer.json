@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.18.0",
+        "karser/karser-recaptcha3-bundle": "^0.1.26",
         "knplabs/knp-paginator-bundle": "^5.9",
         "mercuryseries/flashy-bundle": "^5.1",
         "phpdocumentor/reflection-docblock": "^5.3",
