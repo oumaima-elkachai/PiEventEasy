@@ -64,16 +64,4 @@ class ReponseController extends AbstractController
             'reclamation' => $reclamation
         ]);
     }
-
-    /**
-     * @Route("/modal-reponse/{reclamationId}", name="modal_reponse")
-     */
-    public function modalReponse(int $reclamationId): Response
-    {
-        $reclamation = $this->getDoctrine()->getRepository(Reclamation::class)->find($reclamationId);
-
-        return $this->render('reponse/modal_reponse.html.twig', [
-            'reclamation' => $reclamation,
-        ]);
-    }
 }

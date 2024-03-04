@@ -3,6 +3,13 @@
 {% block title %}EvenatEasy{% endblock %}
 
 {% block body %}
+    {%  block search  %}
+        <div class="search-bar">
+          <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input id="searchreclamation" type="text" name="query" placeholder="Search" title="Enter search keyword">
+          </form>
+        </div><!-- End Search Bar -->
+        {% endblock %} 
     <section id="main-carousel2" class="main-carousel2 clearfix">
         <div class="item" style="background-image: url(Client/assets/images/slider/slider-bg4.jpg);">
             <div class="overlay-light">
@@ -60,4 +67,29 @@
             </div>
         </div>
     </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			// Function to perform the search based on the specified keyword
+			function searchOffer(keyword) {
+				$(".table tbody tr").each(function () {
+					var found = false;
+					$(this).find("td").each(function () {
+						if ($(this).text().toLowerCase().includes(keyword.toLowerCase())) {
+							found = true;
+							return false; // Exit the loop
+						}
+					});
+					$(this).toggle(found); // Show/hide the row based on search result
+				});
+			}
+	
+			// Event handler for the search input
+			$("#searchreclamation").on("keyup", function () {
+				var searchText = $(this).val();
+				searchOffer(searchText);
+			});
+		});
+	</script>
 {% endblock %}
