@@ -1,0 +1,65 @@
+
+{% extends 'baseAdmin.html.twig' %}
+{% block title %}Tables / Data {% endblock %}
+{% block body %}
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Data Tables</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">Data</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Data Tables</h5>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for booking in book%}
+                    <tr>
+                        <td>{{ booking.id }}</td>
+                        <td>{{ booking.DateD|date('d/m/Y') }}</td>
+                        <td>{{ booking.DateF|date('d/m/Y') }}</td>
+                        <td>{{ booking.prix }}</td>
+                    
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucune réservation trouvée</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+{% endblock %}

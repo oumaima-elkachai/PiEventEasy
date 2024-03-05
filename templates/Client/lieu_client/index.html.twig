@@ -1,0 +1,232 @@
+{%  extends 'base.html.twig' %}
+{% block title %}Places{% endblock %}
+{% block body %}
+
+<!-- breadcrumb-section - start
+		================================================== -->
+<section id="breadcrumb-section" class="breadcrumb-section clearfix">
+    <div class="jarallax" style="background-image: url(Client/assets/images/breadcrumb/0.breadcrumb-bg.jpg);">
+        <div class="overlay-black">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <!-- breadcrumb-title - start -->
+                        <div class="breadcrumb-title text-center mb-50">
+                            <span class="sub-title">Eventeasy events</span>
+                            <h2 class="big-title">Eventeasy <strong>event</strong></h2>
+                        </div>
+                        <!-- breadcrumb-title - end -->
+
+                        <!-- breadcrumb-list - start -->
+                        <div class="breadcrumb-list">
+                            <ul>
+                                <li class="breadcrumb-item"><a href="index-1.html" class="breadcrumb-link">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Places</li>
+                            </ul>
+                        </div>
+                        <!-- breadcrumb-list - end -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb-section - end ================================================== -->
+
+<section id="event-search-section" class="event-search-section clearfix" style="background-image: url(Client/assets/images/special-offer-bg.png);">
+	<div class="container">
+		<div class="row">
+
+			<!-- section-title - start -->
+			<div class="col-lg-4 col-md-12 col-sm-12">
+				<div class="section-title">
+					<small class="sub-title">Find best Places on EventEasy</small>
+					<h2 class="big-title">Places <strong>Search</strong></h2>
+				</div>
+			</div>
+			<!-- section-title - end -->
+
+			<!-- search-form - start -->
+			<div class="col-lg-8 col-md-12 col-sm-12">
+				<div class="search-form form-wrapper">
+					<form >
+						<ul>
+							<li>
+								<span class="title">Search Here</span>
+								<div class="form-item">
+									<input type="search" placeholder="Search name,location,etc" id="searchlieu">
+								</div>
+							</li>
+						</ul>
+						
+					</form>
+				</div>
+			</div>
+			<!-- search-form - end -->
+			
+		</div>
+	</div>
+</section>
+
+<section id="event-section" class="event-section bg-gray-light sec-ptb-100 clearfix">
+	<div class="container">
+		<div class="row">
+
+			<!-- sidebar-section - start -->
+			<div class="col-lg-3 col-md-12 col-sm-12">
+				<div class="sidebar-section">
+
+					
+
+					<!-- map-wrapper - start -->
+					<div class="map-wrapper mb-30">
+
+						<div style="margin-top: 50px; text-align: center;">
+							<a href= "{{ path('map_lieu') }}"><button type="button" class="custom-btn">Map Search</button></a>
+						</div>
+
+					</div>
+					<!-- map-wrapper - end -->
+
+					
+				</div>
+			</div>
+			<!-- sidebar-section - end -->
+
+			<div class="col-lg-9 col-md-12 col-sm-12">
+
+				
+				<div class="tab-content">
+
+					<div id="grid-style" class="tab-pane fade in active show">
+						<div class="row justify-content-center ">
+							{% for lieu in pagination %}
+							<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+							<div class="event-grid-item">
+								<!-- event-image - start -->
+								<div class="event-image">
+									{% if lieu.image is defined %}
+									<img src="{{ asset('uploads/' ~ lieu.image) }}" alt="Image du lieu" style="width: 100%; height: 200px; object-fit: cover;">
+									{% else %}
+									<div class="image-placeholder" style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">Pas d'image disponible</div>
+									{% endif %}
+								</div>
+								<!-- event-image - end -->
+
+								<!-- event-content - start -->
+								<div class="event-content">
+									<div class="event-title mb-30">
+										
+											<h3 class="title">{{ lieu.nom }}</h3>
+										
+										<span class="ticket-price yellow-color">{{ lieu.region }}</span>
+									</div>
+									<div class="event-post-meta ul-li-block mb-30">
+										<ul>
+											<li>
+												<span class="icon">
+													<i class="far fa-clock"></i>
+												</span>
+												Capacity: {{ lieu.capacity}}
+											</li>
+											<li>
+												<span class="icon">
+													<i class="fas fa-map-marker-alt"></i>
+												</span>
+												Prix: {{ lieu.prix }}
+											</li>
+										</ul>
+									</div>
+										<a href="{{path ('booking',{'lieuId': lieu.id})}}"  class="tickets-details-btn">Réserver</a>
+								</div>
+								<!-- event-content - end -->
+							</div>
+						</div>
+							{% endfor %}
+
+						
+
+						</div>
+						<center>
+							<div class="pagination ul-li clearfix">
+								<ul>
+									{{ knp_pagination_render(pagination) }}
+								</ul>
+							</div>
+						</center>
+						
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to perform the search based on the specified keyword
+        function searchlieu(keyword) {
+            $(".lieus").each(function () {
+                var found = false;
+                // Check if the card title contains the keyword
+                if ($(this).find('.card-title').text().toLowerCase().includes(keyword.toLowerCase())) {
+                    found = true;
+                }
+                // Check if the card text contains the keyword
+                if ($(this).find('.card-text').text().toLowerCase().includes(keyword.toLowerCase())) {
+                    found = true;
+                }
+                $(this).toggle(found); // Show/hide the card based on search result
+            });
+        }
+
+        // Event handler for the search input
+        $("#searchlieu").on("keyup", function () {
+            var searchText = $(this).val();
+            searchlieu(searchText);
+        });
+    });
+</script>
+
+<style>
+    .pagination ul {
+        margin: 20px 0; /* Ajoute une marge en haut et en bas */
+        padding: 0;
+        list-style: none;
+    }
+
+    .pagination ul li {
+        display: inline-block;
+        margin-right: 5px; /* Ajoute un espacement entre les éléments */
+    }
+
+    .pagination ul li.active a {
+        background-color: #007bff; /* Couleur de fond pour la page active */
+        color: #fff; /* Couleur du texte pour la page active */
+        padding: 8px 12px; /* Ajuste le rembourrage */
+        border-radius: 3px; /* Ajoute des coins arrondis */
+    }
+
+    .pagination ul li a {
+        display: inline-block;
+        padding: 6px 10px; /* Ajuste le rembourrage */
+        text-decoration: none;
+        color: #007bff; /* Couleur du texte */
+        border: 1px solid #007bff; /* Ajoute une bordure */
+        border-radius: 3px; /* Ajoute des coins arrondis */
+    }
+
+    .pagination ul li a:hover {
+        background-color: #f0f0f0; /* Couleur de fond au survol */
+    }
+</style>
+
+
+
+{% endblock %}

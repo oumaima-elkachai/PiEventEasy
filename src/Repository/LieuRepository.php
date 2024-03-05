@@ -20,6 +20,27 @@ class LieuRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Lieu::class);
     }
+    
+
+    /**
+     * Find Lieux by keyword.
+     *
+     * @param string $keyword
+     * @return array
+     */
+    public function findByKeyword(string $keyword): array
+    {
+        // Create a query builder
+        $qb = $this->createQueryBuilder('l');
+
+        // Add a WHERE clause to filter by keyword
+        $qb->where('l.nom LIKE :keyword')
+           ->orWhere('l.region LIKE :keyword')
+           ->setParameter('keyword', '%' . $keyword . '%');
+
+        // Execute the query
+        return $qb->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Lieu[] Returns an array of Lieu objects

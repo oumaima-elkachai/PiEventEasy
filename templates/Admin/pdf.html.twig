@@ -1,0 +1,48 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demandes</title>
+    <style>
+        /* Define your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des evenements</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for demande in demandes %}
+                <tr>
+                    <td>{{ demande.Title }}</td>
+                    <td>{{ demande.Email }}</td>
+                    <td>{{ demande.Date|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ demande.Phone }}</td>
+                    <td>{{ demande.categoryid.Type }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

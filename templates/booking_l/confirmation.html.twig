@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="overlay-black">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                <!-- breadcrumb-title - start -->
+                <div class="breadcrumb-title text-center mb-50">
+                    <span class="sub-title"></span>
+                    <h2 class="big-title"><strong></strong></h2>
+                </div>
+                <!-- breadcrumb-title - end -->
+
+                <!-- breadcrumb-list - start -->
+                <div class="breadcrumb-list">
+                    <ul>
+                        
+                    </ul>
+                </div>
+                <!-- breadcrumb-list - end -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<section id="booking-section" class="booking-section bg-gray-light sec-ptb-100 clearfix">
+    <div class="container">
+        <div class="row">
+
+        <div id="calendrier" style="width: 80%; margin: 0 auto;"></div> <!-- Utilisez margin: 0 auto; pour centrer horizontalement -->
+
+            
+        </div>
+    </div>
+    <div style="margin-top: 50px; text-align: center;">
+        <a href= "{{ path('app_lieu_client') }}"><button type="button" class="custom-btn">Retour au liste</button></a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendrier');
+        
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            locale: 'tn',
+            timeZone: 'Africa/Tunis',
+            headerToolbar: {
+                start: 'prev,next today',
+                center: 'title',
+                end: 'dayGridMonth,timeGridWeek,listWeek,timeGridDay'
+                
+            },
+            events: {{ data|raw }},
+            editable: true,
+            eventResizableFromStart: true,
+            eventColor: 'orange',
+            
+        });
+        
+        calendar.render();
+    });
+</script>
+{% endblock %}

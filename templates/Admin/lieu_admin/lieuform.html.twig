@@ -1,0 +1,157 @@
+
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Form Places</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Forms</li>
+          <li class="breadcrumb-item active">Places</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Add Places</h5>
+
+              <!-- General Form Elements -->
+              {{ form_start(f,{attr:{novalidate:'novalidate'}}) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Name</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.nom,{'attr':{'class':'form-control'}}) }}
+                    {{form_errors(f.nom)}}
+                    
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Region</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.region,{'attr':{'class':'form-control'}}) }}
+                    {{form_errors(f.region)}}
+                    
+                  </div>
+                
+                </div>
+                
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">Price</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.prix,{'attr':{'class':'form-control'}}) }}
+                    {{form_errors(f.prix)}}
+                    
+                  </div>
+                    
+                </div>
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">Capacity</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.capacity,{'attr':{'class':'form-control'}}) }}
+                    {{form_errors(f.capacity)}}
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="inputDate" class="col-sm-2 col-form-label">Start Date</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.dateD,{'attr':{'class':'form-control'}}) }}
+                    
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputDate" class="col-sm-2 col-form-label">End Date</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.dateF,{'attr':{'class':'form-control'}}) }}
+                  </div>.
+                </div>
+
+                
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Category</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.category,{'attr':{'class':'form-control'}}) }}
+                    {{form_errors(f.category)}}
+                    
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.image,{'attr':{'class':'form-control'}}) }}
+                   
+                  </div>
+                </div>
+                <div class="form-group map-container">
+                  <div id="form_map" style='width: 100%; height: 400px;'></div>
+                  {{ form_widget(f.latitude, {'attr': {'class': 'latitude-field', 'hidden': true}}) }}
+                  {{ form_widget(f.longitude, {'attr': {'class': 'longitude-field', 'hidden': true}}) }}
+              </div>
+                
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label"></label>
+                  <div class="col-sm-10">
+                    {{ form_widget(f.save,{'attr':{'class':'btn btn-primary'}}) }}
+                  </div>
+                </div>
+
+                {{form_end(f)}}<!-- End General Form Elements -->
+
+            </div>
+          </div>
+
+        
+
+        
+      </div>
+    </section>
+
+  </main><!-- End #main -->  
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet" /> -->
+
+   <script>
+      mapboxgl.accessToken = '{{ mapbox_access_token }}';
+
+      var latitudeField = document.querySelector('.latitude-field');
+      var longitudeField = document.querySelector('.longitude-field');
+
+      console.log('Latitude field:', latitudeField);
+      console.log('Longitude field:', longitudeField);
+
+      var map = new mapboxgl.Map({
+          container: 'form_map',
+           style: 'mapbox://styles/mapbox/dark-v10',
+          center: [10.181667, 36.806389],
+          zoom: 3
+      });
+
+      console.log('Map:', map);
+
+      // Add a draggable marker to the map
+      var marker = new mapboxgl.Marker({
+          draggable: true
+      })
+          .setLngLat([10.181667,36.806389])
+          .addTo(map);
+
+      console.log('Marker:', marker);
+
+      // Update latitude and longitude fields on marker drag
+      marker.on('drag', function () {
+          var lngLat = marker.getLngLat();
+          latitudeField.value = lngLat.lat;
+          longitudeField.value = lngLat.lng;
+      });
+  </script>   
+{% endblock %}
